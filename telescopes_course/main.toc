@@ -1,0 +1,39 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\'{I}ndice general}{\es@scroman {i}}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Telescopios Generalidades}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introducción}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Principios Ópticos Fundamentales}{8}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Reflexión y Refracción}{10}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Mecanismos físicos de la reflexión y la refracción}{11}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Reflexión y espejos}{13}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Refracción y Lentes}{15}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Combinación Lentes-Espejos}{16}{subsection.1.3.4}%
+\contentsline {section}{\numberline {1.4}Tipos de Telescopios}{16}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Telescopios Refractores}{16}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Telescopios Reflectores}{16}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Telescopios Catadióptricos}{16}{subsection.1.4.3}%
+\contentsline {section}{\numberline {1.5}Parámetros Clave de un Telescopio}{16}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Apertura}{16}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Distancia Focal}{16}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Relación Focal}{16}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Aumento y Resolución}{16}{subsection.1.5.4}%
+\contentsline {section}{\numberline {1.6}Monturas de Telescopios}{16}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Montura Altazimutal}{16}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Montura Ecuatorial}{16}{subsection.1.6.2}%
+\contentsline {subsection}{\numberline {1.6.3}Montura Dobson}{16}{subsection.1.6.3}%
+\contentsline {section}{\numberline {1.7}Grandes Telescopios y Futuro en Astronomía}{16}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Consideraciones para la Elección de un Telescopio}{16}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Preguntas y Discusión}{16}{section.1.9}%
+\contentsline {chapter}{\numberline {2}Solidworks - Modelado por CAD de un Telescopio}{17}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Impresion 3D - Slicer}{19}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Herramientas extra - Solidworks}{21}{chapter.4}%
+\contentsline {chapter}{Anexo de Matemáticas}{23}{appendix*.23}%
+\contentsline {chapter}{Lista de Herramientas}{25}{appendix*.25}%
+\contentsline {section}{\numberline {.1}Impresoras 3D}{25}{section.Alph0.1}%
+\contentsline {section}{\numberline {.2}Cortadora laser}{25}{section.Alph0.2}%
+\contentsline {section}{\numberline {.3}CNC}{25}{section.Alph0.3}%
+\contentsline {chapter}{Diagramas Técnicos}{27}{appendix*.26}%
+\contentsline {section}{\numberline {.4}Modelados de práctica}{27}{section.Alph0.4}%
+\contentsline {section}{\numberline {.5}Ensambles}{27}{section.Alph0.5}%
+\contentsline {section}{\numberline {.6}Corte Laser}{27}{section.Alph0.6}%
+\contentsline {section}{\numberline {.7}Piezas}{27}{section.Alph0.7}%

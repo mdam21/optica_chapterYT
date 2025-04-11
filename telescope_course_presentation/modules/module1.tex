@@ -1,0 +1,44 @@
+% prueba
+\begin{frame}
+	
+	Esta \DocType\ foi desenvolvida no modelo \UTFPR-Slides, baseado na classe \LaTeX\ \href{https://www.ctan.org/pkg/beamer/}{Beamer\LinkIcon}.
+	
+	\pause%
+	
+	\begin{columns}[b]
+		
+		\column{0.5\textwidth-0.5\columnsep}
+		
+		\begin{block}<+->{Exemplo de lista de itens numerados}
+			
+			\begin{enumerate}[<+-|alert@+>]
+				\item item numerado 1:
+				\begin{enumerate}[a{\only<article>{^^29}}]
+					\item subitem numerado a;
+					\item subitem numerado b;
+					\item subitem numerado c;
+				\end{enumerate}
+				\item item numerado 2;
+				\item item numerado 3.
+			\end{enumerate}
+			
+		\end{block}
+		
+		\column{0.5\textwidth-0.5\columnsep}
+		
+		\begin{alertblock}<+->{\faInfoCircle\ Informações e dicas sobre \TeX/\LaTeX}
+			
+			\begin{itemize}
+				\selectlanguage{english}
+				\item \href{https://www.latex-project.org/}{\LaTeX\ Project\LinkIcon}.
+				\item \href{https://www.ctan.org/}{Comprehensive \TeX\ Archive Network (CTAN)\LinkIcon}.
+				\item \href{https://www.tug.org/}{\TeX\ Users Group (TUG)\LinkIcon}.
+				\item \href{https://en.wikibooks.org/wiki/LaTeX/}{\LaTeX\ \textemdash\ Wikibooks\LinkIcon}.
+				\item \href{https://tex.stackexchange.com/}{\TeX-\LaTeX\ Stack Exchange\LinkIcon}.
+			\end{itemize}
+			
+		\end{alertblock}
+		
+	\end{columns}
+	
+\end{frame}

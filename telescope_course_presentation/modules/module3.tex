@@ -1,0 +1,40 @@
+
+\subsection{Equações}
+
+\begin{frame}
+	
+	Uma equação como $y = a x^2 + b x + c$ pode ser inserida ao longo do texto de um parágrafo usando o ambiente \LaTeX\ \texttt{math} (ou o atalho \LaTeX\ \texttt{\textbackslash(\ldots\textbackslash)} ou o atalho \TeX\ \texttt{\$\ldots\$}) e calculada como $y = \fpeval{1 * 2^2 + 2 * 2 + 4}$ para $a = 1$, $b = 2$, $c = 4$ e $x = 2$.
+	Por outro lado, a seguinte equação (não numerada) pode ser inserida em uma linha própria usando o ambiente \LaTeX\ \texttt{displaymath} (ou o atalho \LaTeX\ \texttt{\textbackslash[\ldots\textbackslash]}):
+	\[
+	\only<beamer:1>{\frac{\mathrm{d}y}{\mathrm{d}x} = \gamma \operatorname{sen} x}
+	\only<all:0|beamer:2>{%
+		\frac{\mathrm{d}y}{\mathrm{d}x} = \gamma \operatorname{sen} x%
+		\rlap{\alert{ $\leftarrow$ integrando esta equação}}%
+	}
+	\only<all:0|beamer:3>{%
+		y = - \gamma \cos x + C\vphantom{\frac{\mathrm{d}}{\mathrm{d}}}%
+		\rlap{\alert{ $\leftarrow$ resulta nesta equação}}%
+	}
+	\only<all:0|beamer:4>{%
+		y = \fpeval{- 4 * round(cos(pi / 3), 3) + 4}\vphantom{\frac{\mathrm{d}}{\mathrm{d}}}%% CHKTEX 35
+		\rlap{\alert{ $\leftarrow$ para ${\gamma} = 4$, $C = 4$ e $x = \frac{\pi}{3}$}}%
+	}
+	\]
+	
+	A Equação~\eqref{eq:fx} foi inserida usando o ambiente \LaTeX\ \texttt{equation} e numerada automaticamente:
+	\begin{equation}%
+		\label{eq:fx}
+		f(x) = \frac{1}{\alpha} \int_0^L \left(\frac{x^2}{2} - \frac{x^3}{3}\right) \mathrm{d}x
+	\end{equation}
+	
+	\begin{alertblock}{\faInfoCircle\ Ferramentas para gerar ou editar equações em \LaTeX}
+		
+		\begin{itemize}
+			\selectlanguage{english}
+			\item[\tiny\faTools] \href{https://formulasheet.com/}{Formula Sheet\LinkIcon}.
+			\item[\tiny\faTools] \href{https://www.tutorialspoint.com/latex_equation_editor.htm}{\LaTeX\ Equation Editor (\textit{by} Tutorials Point)\LinkIcon}.
+		\end{itemize}
+		
+	\end{alertblock}
+	
+\end{frame}

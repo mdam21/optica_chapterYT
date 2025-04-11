@@ -1,0 +1,1297 @@
+%%%% utfpr-slides.sty, 2025/03/25 v1.6
+%%%% Copyright (C) 2015-2025 Luiz E. M. Lima (luizeduardomlima@gmail.com)
+%%
+%% This work may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License, either version 1.3 of this license or (at your
+%% option) any later version.
+%% The latest version of this license is in
+%%   https://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is Luiz E. M. Lima.
+%%
+%% This work consists of all files listed in readme.html.
+%%
+%% A brief description of this work is in readme.txt.
+
+%% Identificação e atualizações
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{slides}[2025/03/25 v1.6 slides package]
+%%%% Alteração de alguns pacotes, comandos, formatações e tipografias.
+% \ProvidesPackage{utfpr-slides}[2024/10/05 v1.5 utfpr-slides package]
+%%%% Alteração de alguns pacotes, comandos, formatações e tipografias.
+% \ProvidesPackage{utfpr-slides}[2024/08/10 v1.4 utfpr-slides package]
+%%%% Alteração de alguns pacotes, comandos, formatações e tipografias.
+% \ProvidesPackage{utfpr-slides}[2024/02/25 v1.3 utfpr-slides package]
+%%%% Alteração de alguns pacotes, comandos, formatações e tipografias.
+% \ProvidesPackage{utfpr-slides}[2019/12/01 v1.2 utfpr-slides package]
+%%%% Alteração de alguns pacotes, comandos, formatações e tipografias.
+%%%% Alteração de nomes dos arquivos (utfprpgtex-slides --> utfpr-slides).
+%%%% Inserção de opção para uso do estilo numérico da ABNT.
+% \ProvidesPackage{utfprpgtex-slides}[2019/02/21 v1.1 utfprpgtex-slides package]
+%%%% Alteração de alguns pacotes, comandos, formatações e tipografias.
+%%%% Alteração de bibtex para biber (biblatex) na produção de citações e referências.
+% \ProvidesPackage{utfprpgtex-slides}[2015/09/20 v1.0 utfprpgtex-slides package]
+%%%% Criação dos arquivos constituintes.
+
+%% Opções do pacote (^ = padrão; ¹ = Apresentação; ² = Artigo)
+\RequirePackage{xpatch}
+\RequirePackage{xkeyval}
+\@ifpackageloaded{xstring}{}{\RequirePackage{xstring}}
+% \tracingpatches%
+%%%% Leiaute (blocos): TCB (tcolorbox) (^) ou Beamer
+\newbool{@LayoutTCB}
+\DeclareOptionX{Layout}[TCB]{\ifstrequal{#1}{TCB}{\booltrue{@LayoutTCB}}{\boolfalse{@LayoutTCB}}}
+%%%% Fonte principal: Arial, Calibri, Times ou LaTeX(*) (^)
+\newbool{@FontArial}
+\newbool{@FontCalibri}
+\newbool{@FontTimes}
+\DeclareOptionX{Font}[LaTeX]{%
+  \boolfalse{@FontArial}%
+  \boolfalse{@FontCalibri}%
+  \boolfalse{@FontTimes}%
+  \ifstrequal{#1}{Arial}{\booltrue{@FontArial}}{}%
+  \ifstrequal{#1}{Calibri}{\booltrue{@FontCalibri}}{}%
+  \ifstrequal{#1}{Times}{%
+    \booltrue{@FontTimes}%
+    \csdef{rm@font}{ntxtlf}%
+  }{}%
+  \ifstrequal{#1}{LaTeX*}{\csdef{rm@font}{lmr}}{}%% Serif
+}
+%%%% Cor (Modelo HTML) hyperlink (azul escuro ^)
+\DeclareOptionX{LinkColor}[00008B]{\ifblank{#1}{\csdef{@LinkColor}{}}{\csdef{@LinkColor}{#1}}}
+%%%% Barra de navegação (cabeçalho) (¹): On (^) ou Off
+\newbool{@NavBarOn}
+\DeclareOptionX{NavBar}[On]{\ifstrequal{#1}{On}{\booltrue{@NavBarOn}}{\boolfalse{@NavBarOn}}}
+%%%% Texto justificado (¹): On (^) ou Off
+\newbool{@JustifyOn}
+\DeclareOptionX{Justify}[On]{\ifstrequal{#1}{On}{\booltrue{@JustifyOn}}{\boolfalse{@JustifyOn}}}
+%%%% Numeração de páginas (²): On (^) ou Off
+\newbool{@PageNumOn}
+\DeclareOptionX{PageNum}[On]{\ifstrequal{#1}{On}{\booltrue{@PageNumOn}}{\boolfalse{@PageNumOn}}}
+%%%% Licença do documento: CC (Creative Commons) (^) ou None
+\newbool{@DocLicCC}
+\DeclareOptionX{DocLic}[CC]{\ifstrequal{#1}{CC}{\booltrue{@DocLicCC}}{\boolfalse{@DocLicCC}}}
+%%%% Licença CC: BY (^), BY-SA, BY-ND, BY-NC, BY-NC-SA ou BY-NC-ND
+\newbool{@CCLicSA}
+\newbool{@CCLicND}
+\newbool{@CCLicNC}
+\DeclareOptionX{CCLic}[BY]{%
+  \ifstrequal{#1}{BY-SA}{\booltrue{@CCLicSA}}{}%
+  \ifstrequal{#1}{BY-ND}{\booltrue{@CCLicND}}{}%
+  \ifstrequal{#1}{BY-NC}{\booltrue{@CCLicNC}}{}%
+  \ifstrequal{#1}{BY-NC-SA}{\ExecuteOptionsX{CCLic = BY-NC, CCLic = BY-SA}}{}%
+  \ifstrequal{#1}{BY-NC-ND}{\ExecuteOptionsX{CCLic = BY-NC, CCLic = BY-ND}}{}%
+}
+%%%% Citação ABNT: AAY (Nome, Ano) (^), NRB (1), NSB [1] ou FN (¹)
+\newbool{@ABNTCitNRB}
+\newbool{@ABNTCitNSB}
+\newbool{@ABNTCitFN}
+\DeclareOptionX{ABNTCit}[AAY]{%
+  \boolfalse{@ABNTCitNRB}%
+  \boolfalse{@ABNTCitNSB}%
+  \boolfalse{@ABNTCitFN}%
+  \ifstrequal{#1}{NRB}{\booltrue{@ABNTCitNRB}}{}%
+  \ifstrequal{#1}{NSB}{%
+    \booltrue{@ABNTCitNRB}%
+    \booltrue{@ABNTCitNSB}%
+  }{}%
+  \ifstrequal{#1}{FN}{%
+    \booltrue{@ABNTCitFN}%
+    \csedef{ver@l3regex.sty}{}%
+  }{}%
+}
+%%%% Ícone de DOI em referências: On ou Off (^)
+\newbool{@DOIIconOn}
+\DeclareOptionX{DOIIcon}[Off]{\ifstrequal{#1}{On}{\booltrue{@DOIIconOn}}{\boolfalse{@DOIIconOn}}}
+%%%% Ícone de URL em referências: On ou Off (^)
+\newbool{@URLIconOn}
+\DeclareOptionX{URLIcon}[Off]{\ifstrequal{#1}{On}{\booltrue{@URLIconOn}}{\boolfalse{@URLIconOn}}}
+%%%% Aviso de indisponíveis, execução de padrões e processamento de atribuídas
+\DeclareOptionX*{\PackageWarning{utfpr-slides}{Unknown option `\CurrentOption'}}
+\ExecuteOptionsX{%
+  Layout    = TCB,%
+  Font      = LaTeX,%
+  LinkColor = 00008B,%
+  NavBar    = On,%
+  Justify   = On,%
+  PageNum   = On,%
+  DocLic    = CC,%
+  CCLic     = BY,%
+  ABNTCit   = AAY,%
+  DOIIcon   = Off,%
+  URLIcon   = Off,%
+}
+\ProcessOptionsX\relax%
+
+%% Pacotes utilizados
+\@ifclassloaded{article}{%
+  \PassOptionsToPackage{table, xcdraw}{xcolor}%
+  \RequirePackage{beamerarticle}%
+}{}
+\RequirePackage{ifdraft}
+\@ifpackageloaded{iftex}{}{\RequirePackage{iftex}}
+\RequirePackage{babel}
+\ifboolexpr{ bool {LuaTeX} or bool {XeTeX} }{%
+  \RequirePackage{fontspec}%
+  \RequirePackage{amsmath}%
+  \RequirePackage[bold-style = ISO]{unicode-math}%
+  \defaultfontfeatures{Ligatures = TeX}%
+  \ifboolexpr{ bool {@FontArial} or bool {@FontTimes} }{%
+    \setmainfont{TeX Gyre Termes}%
+    \setsansfont{TeX Gyre Heros}%
+    \setmathfont{TeX Gyre Termes Math}%
+    \setmathfont{TeX Gyre Termes Math}[version = bold]%
+  }{}%
+  \ifbool{@FontCalibri}{\setsansfont{Carlito}}{}%
+}{%
+  \RequirePackage[utf8]{inputenc}%
+  \RequirePackage[T1]{fontenc}%
+  \ifboolexpr{ bool {@FontArial} or bool {@FontTimes} }{%
+    \RequirePackage[scaled = 1.0, helvratio = 1.0]{newtxtext}%
+    \RequirePackage[smallerops]{newtxmath}%
+  }{%
+    \RequirePackage{amsmath}%
+    \@ifpackageloaded{amssymb}{}{\RequirePackage{amssymb}}%
+    \RequirePackage{lmodern}%
+    \RequirePackage{textcomp}%
+  }%
+  \ifbool{@FontCalibri}{\RequirePackage[sfdefault, lining, tabular]{carlito}}{}%
+}
+\RequirePackage{fontawesome5}
+\RequirePackage{microtype}
+\RequirePackage{ragged2e}
+\RequirePackage[overload]{textcase}
+\RequirePackage{csquotes}
+\RequirePackage{geometry}
+\ifbool{@LayoutTCB}{\RequirePackage{tcolorbox}}{}
+\RequirePackage{icomma}
+\RequirePackage[content = {\faFileImage}]{draftfigure}
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage[%
+  style        = abnt\ifbool{@ABNTCitNRB}{-numeric}{\ifbool{@ABNTCitFN}{-ibid}{}},%
+  natbib       = true,%
+  sorting      = \ifbool{@ABNTCitNRB}{none}{nty},%
+  uniquename   = minfull,%
+  uniquelist   = \ifbool{@ABNTCitNRB}{false}{minyear},%
+  extradate    = true,%
+  repeatfields = true,%
+  \ifbool{@ABNTCitNRB}{comp = true,}{}%
+]{biblatex}
+\RequirePackage[hyphens]{xurl}
+\@ifclassloaded{article}{%
+  \RequirePackage{indentfirst}%
+  \RequirePackage{fancyhdr}%
+  \ifbool{@LayoutTCB}{}{\RequirePackage{framed}}%
+  \RequirePackage{graphicx}%
+  \RequirePackage{caption}%
+  \RequirePackage{hyperref}%
+  \RequirePackage{nameref}%
+}{}
+
+%% Configurações do pacote microtype
+\@ifpackagelater{microtype}{2021/10/31}{\microtypesetup{nopatch = footnote}}{}
+
+%% Fontes
+\ifcsvoid{rm@font}{\renewcommand*{\familydefault}{\sfdefault}}{}
+\renewcommand*{\bfdefault}{bx}
+\csletcs{old@ttfamily}{ttfamily}
+\renewrobustcmd*{\ttfamily}{\old@ttfamily\hyphenchar\font=`\-\relax}
+\csletcs{Old@TeX}{TeX}
+\csletcs{Old@LaTeX}{LaTeX}
+\AtBeginDocument{%
+  \renewrobustcmd*{\TeX}{{\fontfamily{lmr}\selectfont\protect\Old@TeX}}%
+  \renewrobustcmd*{\LaTeX}{{\fontfamily{lmr}\selectfont\Old@LaTeX}}%
+}
+\newrobustcmd*{\UTFPR}{UTF{\tiny\kern-0.1em\hbox{PR}}}
+
+%% Cores
+\definecolor{UTFPRBlack}{cmyk}{0, 0, 0, 1}
+\definecolor{UTFPRYellow}{cmyk}{0, 0.2, 1, 0}
+\definecolor{ORCIDGreen}{RGB}{166, 206, 57}
+\ifcsvoid{@LinkColor}{%
+  \colorlet{LinkColor}{.}%
+}{%
+  \definecolor{LinkColor}{HTML}{\@LinkColor}%
+}
+\colorlet{HyRefColor}{\ifcsvoid{@LinkColor}{}{LinkColor!50!}.}
+\ifbool{@LayoutTCB}{%
+  \tcbsetforeverylayer{%
+    skin             = standard jigsaw,%
+    opacityback      = 0.5,%
+    opacitybacktitle = 0.5,%
+    colframe         = UTFPRYellow,%
+    colback          = black!5!white,%
+    colbacktitle     = UTFPRYellow,%
+    coltitle         = UTFPRBlack,%
+    fonttitle        = \bfseries,
+    top              = \z@,%
+    bottom           = \z@,%
+    left             = \z@,%
+    right            = \z@,%
+  }%
+}{}
+
+%% Hiperlinks e URLs
+\hypersetup{%
+  breaklinks         = true,%
+  colorlinks         = true,%
+  allcolors          = HyRefColor,%
+  bookmarksdepth     = 2,%
+  bookmarksnumbered  = true,%
+  pdfdisplaydoctitle = true,%
+  pdfpagelayout      = SinglePage,%
+  pdfencoding        = unicode,%
+}
+\pdfstringdefDisableCommands{%
+  \csletcs{S@AuthorInfo}{@gobble}%
+  \csletcs{@AuthorInfo}{@gobble}%
+  \csletcs{emailIcon}{@gobble}%
+  \csletcs{LattesIcon}{@gobble}%
+  \csletcs{ORCIDIcon}{@gobble}%
+  \csletcs{thanks}{@gobble}%
+  \renewcommand*{\\}{\ \ignorespaces}%
+}
+\DeclareUrlCommand{\URL}{%
+  \renewcommand*{\UrlFont}{\color{HyRefColor}\ttfamily}%
+  \renewcommand*{\UrlLeft}{<}%
+  \renewcommand*{\UrlRight}{>}%
+}
+\csgappto{UrlBreaks}{\UrlOrds}
+\csgappto{UrlSpecials}{\do\_{\_\penalty\UrlBreakPenalty}}
+
+%% Variáveis dependentes do idioma
+\mode<presentation>{\newcommand*{\DocType}{apresentação}}
+\mode<article>{\newcommand*{\DocType}{apostila (notas de palestra)}}
+\newcommand*{\MECName}{Ministério da Educação}
+\newcommand*{\UTFPRName}{Universidade Tecnológica Federal do Paraná}
+\newcommand*{\CCLicType}{%
+  \ifbool{@CCLicNC}{\csuse{textendash}Não\-Co\-mer\-cial}{}%
+  \ifbool{@CCLicND}{\csuse{textendash}Sem\-De\-ri\-va\-ções}{}%
+  \ifbool{@CCLicSA}{\csuse{textendash}Com\-par\-ti\-lha\-Igual}{}%
+}
+\newcommand*{\CCLicDescr}{%
+  Esta \DocType\ifcsvoid{@CCLicYear}{}{ \@CCLicYear}\ifcsvoid{@CCLicAuthor}{}{ de \@CCLicAuthor} está licenciada sob %
+  \href{\CCLicURL}{Cre\-ative Com\-mons Atribuição{\CCLicType} 4.0 Internacional \CCLicIcons}%
+}
+\newcommand*{\TtlPageName}{Página de Título}
+\newcommand*{\KWCall}{Palavras-chave}
+\newcommand*{\SrcCall}{Fonte}
+\newcommand*{\LogoWrng}{\faFileImage\\Inserir Logo:\\}
+%%%% Definições em português
+\csappto{extrasbrazilian}{%
+  \mode<presentation>{\renewcommand*{\DocType}{apresentação}}%
+  \mode<article>{\renewcommand*{\DocType}{apostila (notas de palestra)}}%
+  \renewcommand*{\MECName}{Ministério da Educação}%
+  \renewcommand*{\UTFPRName}{Universidade Tecnológica Federal do Paraná}%
+  \renewcommand*{\CCLicType}{%
+    \ifbool{@CCLicNC}{\csuse{textendash}Não\-Co\-mer\-cial}{}%
+    \ifbool{@CCLicND}{\csuse{textendash}Sem\-De\-ri\-va\-ções}{}%
+    \ifbool{@CCLicSA}{\csuse{textendash}Com\-par\-ti\-lha\-Igual}{}%
+  }%
+  \renewcommand*{\CCLicDescr}{%
+    Esta \DocType\ifcsvoid{@CCLicYear}{}{ \@CCLicYear}\ifcsvoid{@CCLicAuthor}{}{ de \@CCLicAuthor} está licenciada sob %
+    \href{\CCLicURL}{Cre\-ative Com\-mons Atribuição{\CCLicType} 4.0 Internacional \CCLicIcons}%
+  }%
+  \renewcommand*{\TtlPageName}{Página de Título}%
+  \renewcommand*{\KWCall}{Palavras-chave}%
+  \renewcommand*{\SrcCall}{Fonte}%
+  \renewcommand*{\LogoWrng}{\faFileImage\\Inserir Logo:\\}%
+}
+%%%% Definitions in english
+\csappto{captionsenglish}{\renewcommand*{\contentsname}{Outline}}
+\csappto{extrasenglish}{%
+  \mode<presentation>{\renewcommand*{\DocType}{presentation}}%
+  \mode<article>{\renewcommand*{\DocType}{handout (lectures notes)}}%
+  \renewcommand*{\MECName}{Ministry of Education}%
+  \renewcommand*{\UTFPRName}{Federal University of Technology \textemdash\ Paraná}%
+  \renewcommand*{\CCLicType}{%
+    \ifbool{@CCLicNC}{\csuse{textendash}Non\-Com\-mer\-cial}{}%
+    \ifbool{@CCLicND}{\csuse{textendash}No\-De\-riv\-a\-tives}{}%
+    \ifbool{@CCLicSA}{\csuse{textendash}Share\-Alike}{}%
+  }%
+  \renewcommand*{\CCLicDescr}{%
+    This \DocType\ifcsvoid{@CCLicYear}{}{ \@CCLicYear}\ifcsvoid{@CCLicAuthor}{}{ by \@CCLicAuthor} is licensed under %
+    \href{\CCLicURL}{Creative Commons Attribution{\CCLicType} 4.0 International \CCLicIcons}%
+  }%
+  \renewcommand*{\TtlPageName}{Title Page}%
+  \renewcommand*{\KWCall}{Keywords}%
+  \renewcommand*{\SrcCall}{Source}%
+  \renewcommand*{\LogoWrng}{\faFileImage\\Insert Logo:\\}%
+}
+
+%% Definições de comandos
+\newcommand*{\MakeIcon}[2][\faQuestionCircle]{%
+  \ifdraft{%
+    \ifblank{#1}{\faQuestionCircle}{#1}%
+  }{%
+    \ifblank{#2}{}{\raisebox{-0.275ex}{\XeTeXLinkBox{\includegraphics[height = \f@size\p@]{#2}}}}%
+  }%
+}
+\ifcsvoid{faOrcid}{%
+  \newcommand*{\faOrcid}{\MakeIcon{orcid}}%
+}{%
+  \csletcs{old@faOrcid}{faOrcid}%
+  \renewcommand*{\faOrcid}{{\color{ORCIDGreen}\old@faOrcid}}%
+}
+\newcommand*{\ORCIDURL}{https://orcid.org/}
+\newcommand*{\ORCIDIcon}[1]{\ifblank{#1}{}{\href{\ORCIDURL#1}{\faOrcid}}}
+\newcommand*{\ORCID}[2][]{\ifblank{#2}{}{\S@Inst{#1}\href{\ORCIDURL#2}{\ifblank{#1}{\ORCIDURL}{}#2}}}
+\providecommand*{\faLattes}{\MakeIcon{lattes}}
+\newcommand*{\LattesURL}{http://lattes.cnpq.br/}
+\newcommand*{\LattesIcon}[1]{\ifblank{#1}{}{\href{\LattesURL#1}{\faLattes}}}
+\newcommand*{\Lattes}[2][]{\ifblank{#2}{}{\S@Inst{#1}\href{\LattesURL#2}{\ifblank{#1}{\LattesURL}{}#2}}}
+\newcommand*{\emailIcon}[1]{\ifblank{#1}{}{\href{mailto:#1}{\faEnvelope}}}
+\newcommand*{\email}[2][]{\ifblank{#2}{}{\S@Inst{#1}\href{mailto:#2}{#2}}}
+\newcommand*{\InfoList}[3][]{%
+  \ifblank{#3}{}{%
+    \begingroup%
+    \providecommand*{\beamer@andother}{\unskip, }%
+    \csletcs{and}{beamer@andother}%
+    \InstBox{#1#2}{#1#3}%
+    \endgroup%
+  }%
+}
+\providecommand*{\faTalking}{\MakeIcon{talking}}
+\newcommand*{\Affil}[2][]{\ifblank{#2}{}{\InstBox{\faUniversity}{\@Inst{#1}#2}}}
+\newcommand*{\S@Inst}[1]{\ifblank{#1}{}{\textsuperscript{\@fnsymbol{#1}}\ignorespaces}}
+\newcommand*{\@Inst}[1]{\ifblank{#1}{}{\textsuperscript{#1}\ignorespaces}}
+\newcommand*{\Inst}{\texorpdfstring{\@ifstar{\S@Inst}{\@Inst}}{\@gobble}}
+\newcommand*{\InstBox}[2]{%
+  \parbox[b][][t]{1.5em}{\ifblank{#1}{\strut}{#1}}%
+  \parbox[t]{\dimexpr\linewidth-1.5em}{\raggedright\ifblank{#2}{\strut}{#2}}%
+}
+\newcommand*{\@Cmps}{}
+\newcommand*{\Campus}[1]{\ifblank{#1}{}{\renewcommand*{\@Cmps}{#1}}}
+\newcommand*{\@DeptLogo}{}
+\newcommand*{\@Dept}{}
+\newcommand*{\Department}[2][]{%
+  \ifblank{#1}{}{\renewcommand*{\@DeptLogo}{#1}}%
+  \ifblank{#2}{}{\renewcommand*{\@Dept}{#2}}%
+}
+\newcommand*{\@CCLicYear}{}
+\newcommand*{\@CCLicAuthor}{}
+\newcommand*{\CCLicenseAttribution}[2]{%
+  \ifblank{#1}{}{\renewcommand*{\@CCLicYear}{\faCopyright[regular] #1}}%
+  \ifblank{#2}{}{\renewcommand*{\@CCLicAuthor}{#2}}%
+}
+\newcommand*{\CCLicAcr}[1]{%
+  \ifbool{@CCLicNC}{#1nc}{}%
+  \ifbool{@CCLicND}{#1nd}{}%
+  \ifbool{@CCLicSA}{#1sa}{}%
+}
+\newcommand*{\CCLicIcons}{%
+  \faCreativeCommons\,\faCreativeCommonsBy%
+  \ifbool{@CCLicNC}{\,\faCreativeCommonsNc}{}%
+  \ifbool{@CCLicND}{\,\faCreativeCommonsNd}{}%
+  \ifbool{@CCLicSA}{\,\faCreativeCommonsSa}{}%
+}
+\newcommand*{\CCLicURL}{https://creativecommons.org/licenses/by\CCLicAcr{-}/4.0/}
+\newcommand*{\CCLicense}{\sffamily\CCLicDescr}
+\newcommand*{\RespNoticeTitle}{}
+\newcommand*{\RespNoticeText}{}
+\newcommand*{\RespNoticeFull}{}
+\newcommand*{\RespNotice}[2][]{%
+  \ifblank{#2}{}{%
+    \renewcommand*{\RespNoticeText}{#2}%
+    \ifblank{#1}{%
+      \renewcommand*{\RespNoticeFull}{#2}%
+    }{%
+      \renewcommand*{\RespNoticeTitle}{#1}%
+      \renewcommand*{\RespNoticeFull}{\textbf{#1:} \MakeLowercase#2}%
+    }%
+  }%
+}
+\newcommand*{\LinkIcon}{\textsuperscript{\fontsize{1.2ex}{1.2ex}\selectfont\faExternalLinkSquare*}}
+\newcommand*{\YearNum}{\number\year}
+\newcommand*{\Logo}[2][height = 8mm]{%
+  \ifblank{#2}{}{%
+    \ifboolexpr{%
+      test {\ifstrequal{#2}{Event}}          or %
+      test {\ifstrequal{#2}{Evento}}         or %
+      test {\ifstrequal{#2}{Promoting Org.}} or %
+      test {\ifstrequal{#2}{Org. Promotora}} or %
+      test {\ifstrequal{#2}{Partner Inst.}}  or %
+      test {\ifstrequal{#2}{Inst. Parceira}} or %
+      test {\ifstrequal{#2}{Institution}}    or %
+      test {\ifstrequal{#2}{Instituição}}    or %
+      test {\ifstrequal{#2}{Department}}     or %
+      test {\ifstrequal{#2}{Departamento}}   or %
+      test {\ifstrequal{#2}{Coordination}}   or %
+      test {\ifstrequal{#2}{Coordenação}}    or %
+      test {\ifstrequal{#2}{Program}}        or %
+      test {\ifstrequal{#2}{Programa}}       or %
+      test {\ifstrequal{#2}{Course}}         or %
+      test {\ifstrequal{#2}{Curso}}          or %
+      test {\ifstrequal{#2}{Extra}}             %
+    }{%
+      \begingroup%
+      \color{UTFPRYellow}%
+      \setkeys{draftfigure}{content = {\LogoWrng#2}, size = {tiny}}%
+      \includegraphics[width = 16mm, height = 8mm, draft, #1]{example-image}%
+      \endgroup%
+    }{%
+      \includegraphics[#1]{#2}%
+    }%
+  }%
+}
+\newcommand*{\@FTLogo}{}
+\AtBeginDocument{%
+  \newcommand*{\FTLogo}{%
+    \ifcsvoid{@FTLogo}{}{%
+      \begingroup%
+      \setlength{\unitlength}{\textwidth}%
+      \begin{picture} (0, 0)%
+      \put (1, 0.0125) {\makebox (0, 0) [r] {\Logo[height = \f@size\p@]{\@FTLogo}}}%
+      \end{picture}%
+      \endgroup%
+    }%
+  }%
+}
+\newcommand*{\SlidesLogo}[1]{\ifblank{#1}{}{\renewcommand*{\@FTLogo}{#1}}}
+\newcommand*{\SlidesBackGround}[1]{%
+  \ifblank{#1}{}{%
+    \usebackgroundtemplate{\includegraphics[width = \paperwidth, height = \paperheight]{#1}}%
+  }%
+}
+\newbool{@CCLicInst}
+\NewDocumentCommand{\TitlePage}{ s }{%
+  \IfBooleanTF{#1}{\booltrue{@CCLicInst}}{\boolfalse{@CCLicInst}}%
+  \begingroup%
+  \setbeamertemplate{navigation symbols}{}%
+  \maketitle%
+  \endgroup%
+}
+%%%% Autor(es)
+\newcounter{AuthCtr}
+\newcounter{AuthNum}
+\newcounter{AuthTmp}
+\define@key{AuthorInfo}{Email}{\ifcsvoid{ATag}{}{\ifblank{#1}{}{\csgdef{\csuse{ATag}Email}{#1}}}}
+\define@key{AuthorInfo}{Lattes}{\ifcsvoid{ATag}{}{\ifblank{#1}{}{\csgdef{\csuse{ATag}Lattes}{#1}}}}
+\define@key{AuthorInfo}{ORCID}{\ifcsvoid{ATag}{}{\ifblank{#1}{}{\csgdef{\csuse{ATag}ORCID}{#1}}}}
+\define@key{AuthorInfo}{Affil}{\ifcsvoid{ATag}{}{\ifblank{#1}{}{\csgdef{\csuse{ATag}Affil}{#1}}}}
+\define@key{AuthorInfo}{Role}{\ifcsvoid{ATag}{}{\ifblank{#1}{}{\csgdef{\csuse{ATag}Role}{#1}}}}
+\define@key{AuthorInfo}{Inst}{\ifcsvoid{ATag}{}{\ifblank{#1}{}{\csgdef{\csuse{ATag}Inst}{#1}}}}
+\csletcs{KV@AuthorInfo@email}{KV@AuthorInfo@Email}
+\csletcs{KV@AuthorInfo@lattes}{KV@AuthorInfo@Lattes}
+\csletcs{KV@AuthorInfo@orcid}{KV@AuthorInfo@ORCID}
+\csletcs{KV@AuthorInfo@affil}{KV@AuthorInfo@Affil}
+\csletcs{KV@AuthorInfo@role}{KV@AuthorInfo@Role}
+\csletcs{KV@AuthorInfo@inst}{KV@AuthorInfo@Inst}
+\NewExpandableDocumentCommand{\AuthorInfo}{ s m }{\IfBooleanTF{#1}{\S@AuthorInfo{#2}}{\@AuthorInfo{#2}}}
+\newcommand*{\S@AuthorInfo}[1]{}
+\newcommand*{\@AuthorInfo}[1]{%
+  \ifblank{#1}{}{%
+    \addtocounter{AuthNum}{1}%
+    \csgdef{ATag}{Auth\Alph{AuthNum}}%
+    \setkeys{AuthorInfo}{%
+      Email  = {},%
+      Lattes = {},%
+      ORCID  = {},%
+      Affil  = {},%
+      Role   = {},%
+      Inst   = {},%
+      #1,%
+    }%
+    \ifnumgreater{\value{AuthNum}}{8}{}{%
+      \ifcsvoid{\csuse{ATag}Inst}{}{\@Inst{\csuse{\csuse{ATag}Inst}}}%
+      \ifboolexpr{%
+        test {\ifcsvoid{\csuse{ATag}Email}}  and %
+        test {\ifcsvoid{\csuse{ATag}Lattes}} and %
+        test {\ifcsvoid{\csuse{ATag}ORCID}}      %
+      }{}{\S@Inst{\value{AuthNum}}}%
+    }%
+    \csgundef{ATag}%
+  }%
+}
+\newcommand{\MakeInfoList}[1]{%
+  \setcounter{AuthTmp}{\ifnumgreater{\value{AuthNum}}{8}{8}{\value{AuthNum}}}%
+  \@whilenum\value{AuthCtr}<\value{AuthTmp}\do{%
+    \stepcounter{AuthCtr}%
+    \ifblank{ATag}{}{\csgdef{ATag}{Auth\Alph{AuthCtr}}}%
+    \ifcsvoid{\csuse{ATag}#1}{}{%
+      \ifstrequal{#1}{Email}{\email[\value{AuthCtr}]{\csuse{\csuse{ATag}Email}}}{}%
+      \ifstrequal{#1}{Lattes}{\Lattes[\value{AuthCtr}]{\csuse{\csuse{ATag}Lattes}}}{}%
+      \ifstrequal{#1}{ORCID}{\ORCID[\value{AuthCtr}]{\csuse{\csuse{ATag}ORCID}}}{}%
+      \ifnumless{\value{AuthCtr}}{\value{AuthTmp}}{, }{}%
+    }%
+  }%
+  \ifblank{ATag}{}{\csgundef{ATag}}%
+  \setcounter{AuthCtr}{0}%
+  \setcounter{AuthTmp}{0}%
+}
+
+%% Texto
+\geometry{\ifdraft{showframe}{}}
+\newcommand*{\@Comma}{, \ignorespaces}
+\newcommand*{\@Semicolon}{; \ignorespaces}
+\newcommand*{\IfStringInList}[2]{\IfSubStr{,#2,}{,#1,}}
+\newrobustcmd*{\ENLangIt}[1]{\savebox0{\foreignlanguage{english}{\textit{#1}}}{\unhbox0}}
+\newrobustcmd*{\ENLangNoIt}[1]{\savebox0{\foreignlanguage{english}{#1}}{\unhbox0}}
+\newrobustcmd*{\ENLang}{\@ifstar{\ENLangIt}{\ENLangNoIt}}
+\csletcs{old@selectlanguage}{selectlanguage}
+\renewcommand*{\selectlanguage}[1]{\IfStringInList{#1}{\bbl@loaded}{\old@selectlanguage{#1}}{}}
+\AtBeginDocument{\frenchspacing}
+
+%% Equações
+\csletcs{math@up}{mathrm}
+\AtBeginDocument{%
+  \csxdef{rm@default}{\rmdefault}%
+  \ifcsequal{f@family}{rm@default}{%
+    \csletcs{math@up@fm}{mathrm}%
+  }{%
+    \csletcs{math@up@fm}{mathsf}%
+  }%
+}
+\newrobustcmd*{\Unit}[2][]{%
+  \ifbool{mmode}{%
+    \math@up{\ifblank{#1}{}{#1\,}#2}%
+  }{%
+    \ensuremath{\math@up@fm{\ifblank{#1}{}{#1\,}#2}}%
+  }%
+}
+\newrobustcmd*{\MathBF}[1]{%
+  \ifboolexpr{ bool {LuaTeX} or bool {XeTeX} }{%
+    \begingroup%
+    \ifcsequal{f@family}{rm@default}{%
+      \csletcs{math@up@fm}{symbfup}%
+    }{%
+      \csletcs{math@up@fm}{symbfsf}%
+    }%
+    \ifbool{mmode}{\symbf{#1}}{{\csletcs{math@up}{math@up@fm}\ensuremath{\symbf{#1}}}}%
+    \endgroup%
+  }{%
+    \ifbool{mmode}{\text{\boldmath\ensuremath{#1}}}{{\csletcs{math@up}{math@up@fm}\boldmath\ensuremath{#1}}}%
+  }%
+}
+\newrobustcmd*{\Degree}[1][]{\ifbool{mmode}{\text{\textdegree}}{\textdegree}\ifblank{#1}{}{#1}}
+\ExplSyntaxOn%
+\ProvideExpandableDocumentCommand{\fpeval}{ m }{\fp_eval:n {#1}}
+\ProvideExpandableDocumentCommand{\inteval}{ m }{\int_eval:n {#1}}
+\ExplSyntaxOff%
+
+%% Objetos flutuantes: figuras, tabelas, etc.
+\graphicspath{%
+  {./Backgrounds/}%
+  {./Figures/}%
+  {./Logos/}%
+  {./Logos/Campi/}%
+  {./Logos/Funding/}%
+}
+\setlength{\aboverulesep}{\z@}
+\setlength{\belowrulesep}{\z@}
+\setlength{\extrarowheight}{0.25ex}
+\setlength{\arrayrulewidth}{\lightrulewidth}
+\newcolumntype{?}[1]{!{\color{RuleColor}\vrule\@width\ifblank{#1}{\heavyrulewidth}{#1}}}
+\newcolumntype{e}[1]{@{\extracolsep{\ifblank{#1}{\fill}{#1}}}}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{Z}{>{\raggedleft\arraybackslash}X}
+%%%% Legendas
+\setlength{\abovecaptionskip}{0.5ex}
+\setlength{\belowcaptionskip}{0.5ex}
+
+%% Citações e referências
+\DeclareLanguageMapping{brazilian}{brazilian-abnt}
+\DeclareLanguageMapping{english}{english-abnt}
+\DeclareLanguageMappingSuffix{}
+\NewBibliographyString{%
+  apud,%% ABNT NBR 10520:2023
+  sheettotal,%
+  sheettotals,%
+  sineloco,%
+  sinenomine,%
+}
+\DefineBibliographyStrings{brazilian}{%
+  apud        = {\textit{apud}},%% ABNT NBR 10520:2023
+  sineloco    = {s\adddot~l\adddot},%
+  sinenomine  = {s\adddot~n\adddot},%
+}
+\DefineBibliographyStrings{english}{%
+  apud        = {\textit{apud}},%% ABNT NBR 10520:2023
+  sheettotal  = {s\adddot},%
+  sheettotals = {s\adddot},%
+  sineloco    = {s\adddot~l\adddot},%
+  sinenomine  = {s\adddot~n\adddot},%
+}
+\xpretofieldformat{pages}{\midsentence}{}{}
+\xpatchbibmacro{in:}{%% ABNT NBR 6023:2018
+  \bibstring{in}%
+}{%
+  \mkbibemph{\bibstring{in}}%
+}{}{}
+\xpatchbibmacro{name:andothers}{%% ABNT NBR 6023:2018
+  \bibstring{andothers}%
+}{%
+  \mkbibemph{\bibstring{andothers}}%
+}{}{}
+\xpatchbibmacro{location}{%% ABNT NBR 6023:2018
+  \bibstring{sineloco}%
+}{%
+  \mkbibemph{\bibstring{sineloco}}%
+}{}{}
+\xpatchbibmacro{venue}{%% ABNT NBR 6023:2018
+  \bibstring{sineloco}%
+}{%
+  \mkbibemph{\bibstring{sineloco}}%
+}{}{}
+\xpatchbibmacro{publisher}{%% ABNT NBR 6023:2018
+  \bibstring{sinenomine}%
+}{%
+  \mkbibemph{\bibstring{sinenomine}}%
+}{}{}
+\xpatchbibmacro{publisher+location+date}{%% ABNT NBR 6023:2018
+  \bibstring{sineloco}%
+  \setunit{\addcolon\addnbspace}%
+  \bibstring{sinenomine}%
+}{%
+  \mkbibemph{\bibstring{sineloco}}%
+  \setunit{\addcolon\addnbspace}%
+  \mkbibemph{\bibstring{sinenomine}}%
+}{}{}
+\xpatchbibmacro{publisher+location+issue+date}{%% ABNT NBR 6023:2018
+  \bibstring{sineloco}%
+  \setunit{\addcolon\addnbspace}%
+  \bibstring{sinenomine}%
+}{%
+  \mkbibemph{\bibstring{sineloco}}%
+  \setunit{\addcolon\addnbspace}%
+  \mkbibemph{\bibstring{sinenomine}}%
+}{}{}
+\ifbool{@ABNTCitNRB}{%
+  \csletcs{multinamedelim}{multinamedelimorig}%
+  \csletcs{finalnamedelim}{finalnamedelimorig}%
+}{%
+  \xpatchbibmacro{textcite}{%
+    \ifnumequal{\value{textcitecount}}{\value{textcitetotal}-1}{%
+      \finalnamedelim%
+    }{%
+      \multinamedelim%
+    }%
+  }{%
+    \textcitedelim%
+  }{}{}%
+}
+\ifbool{@ABNTCitNSB}{%
+  \csletcs{mkbibparens}{mkbibbrackets}%
+  \csletcs{bibopenparen}{bibopenbracket}%
+  \csletcs{bibcloseparen}{bibclosebracket}%
+  \DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{#1}}%
+}{}
+\DeclareFieldFormat{firstword}{%% ABNT NBR 10520:2023
+  \iftoggle{sccite}{%
+    \normalfont\textsc{\MakeLowercase{\FirstWord{#1}}}\space[\ldots]\isdot%
+  }{%
+    \normalfont\FirstWord{#1}\space[\ldots]\isdot%
+  }%
+}
+\DeclareFieldFormat{doi}{%
+  \ifbool{@DOIIconOn}{\MakeIcon{doi}\addnbspace}{}\mkbibacro{DOI}\addcolon\space%
+  \ifhyperref{\href{https://doi.org/#1}{\nolinkurl{#1}}}{\nolinkurl{#1}}%
+}
+\DeclareFieldFormat{url}{%% ABNT NBR 6023:2018
+  \ifbool{@URLIconOn}{\faExternalLinkSquare*\addnbspace\mkbibacro{URL}}{\bibstring{urlfrom}}\addcolon\space%
+  \url{#1}%
+}
+\renewcommand*{\mkbibnamefamily}[1]{#1}%% ABNT NBR 10520:2023
+
+%% Customizações da classe beamer
+\mode<presentation>{%
+  \usetheme{Boadilla}%
+  \usefonttheme[\ifcsvoid{rm@font}{onlymath}{}]{serif}%
+  \ifbool{@LayoutTCB}{%
+    \setbeamercolor{title}{fg = UTFPRBlack}%
+    \setbeamercolor{author}{fg = UTFPRBlack}%
+  }{%
+    \setbeamercolor*{title}{fg = UTFPRBlack, bg = UTFPRYellow}%
+    \setbeamercolor*{author}{fg = UTFPRBlack, bg = black!5!white}%
+  }%
+  \setbeamercolor*{bibliography entry author}{fg = black}%
+  \setbeamercolor*{bibliography entry title}{fg = black}%
+  \setbeamercolor*{bibliography entry location}{fg = black}%
+  \setbeamercolor*{bibliography entry note}{fg = black}%
+  \setbeamercolor*{bibliography item}{fg = black}%
+  \setbeamercolor*{author in head/foot}{fg = UTFPRBlack, bg = UTFPRYellow}%
+  \setbeamercolor*{section in head/foot}{fg = UTFPRBlack, bg = UTFPRYellow}%
+  \setbeamercolor*{frametitle}{fg = black}%
+  \setbeamercolor*{button}{fg = HyRefColor, bg = UTFPRYellow}%
+  \setbeamercolor{item projected}{fg = UTFPRBlack}%
+  \setbeamercolor{subitem projected}{fg = UTFPRBlack}%
+  \setbeamercolor{subsubitem projected}{fg = UTFPRBlack}%
+  \setbeamercolor*{structure}{fg = UTFPRYellow}%
+  \setbeamercolor*{alerted text}{fg = red!25!gray}%
+  \setbeamercolor*{example text}{fg = green!25!gray}%
+  \setbeamercolor*{block title}{fg = UTFPRBlack, bg = UTFPRYellow}%
+  \setbeamercolor*{block title alerted}{fg = UTFPRBlack, bg = red!25!gray}%
+  \setbeamercolor*{block title example}{fg = UTFPRBlack, bg = green!25!gray}%
+  \setbeamercolor*{caption name}{fg = black}%
+  \setbeamerfont{title}{series = \bfseries}%
+  \setbeamerfont{date}{size = \scriptsize}%
+  \setbeamerfont{section in toc}{series = \bfseries}%
+  \setbeamerfont{subsection in toc}{series = \bfseries}%
+  \setbeamerfont{abstract title}{series = \bfseries}%
+  \setbeamerfont{button}{size = \scriptsize}%
+  \setbeamerfont{block title alerted}{size = \scriptsize, series = \bfseries}%
+  \setbeamerfont{block title example}{size = \scriptsize, series = \bfseries}%
+  \setbeamerfont{block body alerted}{size = \scriptsize}%
+  \setbeamerfont{block body example}{size = \scriptsize}%
+  \setbeamerfont{caption}{size = \scriptsize, series = \bfseries}%
+  \setbeamerfont{caption name}{size = \scriptsize, series = \bfseries}%
+  \setbeamertemplate{title page}{%
+    \pdfbookmark[2]{\TtlPageName}{titlepage}%
+%     \null\par%
+    \begingroup\centering%
+    \ifbool{@LayoutTCB}{%
+      \begin{tcolorbox}[colback = UTFPRYellow, beforeafter skip = \z@, halign = flush center]%
+      {\usebeamerfont{title}\inserttitle}%
+      \ifcsvoid{insertsubtitle}{}{\vskip1ex{\usebeamerfont{subtitle}\insertsubtitle}}%
+      \end{tcolorbox}%
+      \vspace*{\stretch{1000}}%
+      \begin{tcolorbox}[beforeafter skip = \z@, halign = flush center]%
+      \usebeamerfont{author}\insertauthor%
+      \end{tcolorbox}%
+    }{%
+      \begin{beamercolorbox}[center, sep = 3\p@, rounded = true, shadow = true]{title}%
+      {\usebeamerfont{title}\inserttitle}%
+      \ifcsvoid{insertsubtitle}{}{\vskip1ex{\usebeamerfont{subtitle}\insertsubtitle}}%
+      \end{beamercolorbox}%
+      \vspace*{\stretch{1000}}%
+      \begin{beamercolorbox}[center, sep = \z@, rounded = true, shadow = true]{author}%
+      \usebeamerfont{author}\insertauthor%
+      \end{beamercolorbox}%
+    }%
+    \vspace*{\stretch{1000}}%
+    \begin{beamercolorbox}[left, sep = \z@]{institute}%
+    \usebeamerfont{institute}%
+    \ifbool{@DocLicCC}{%
+      \ifbool{@CCLicInst}{%
+        \parbox[b]{0.7\textwidth}{\insertinstitute}\hspace*{\stretch{1000}}%
+        \fcolorbox{UTFPRYellow}{black!5!white}{\parbox[b]{0.275\textwidth}{\raggedright\tiny\CCLicense}}%
+      }{%
+        \insertinstitute%
+      }%
+    }{%
+      \insertinstitute%
+    }%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[center, sep = \z@]{date}%
+    \usebeamerfont{date}\ifcsvoid{insertdate}{\strut}{\strut\insertdate}%
+    \end{beamercolorbox}%
+    \ifcsvoid{inserttitlegraphic}{\rule{\z@}{8mm}}{\inserttitlegraphic}\par%
+    \endgroup%
+  }%
+  \setbeamertemplate{sections/subsections in toc}[ball unnumbered]%
+  \ifboolexpr{ bool {@ABNTCitNRB} or (bool {XeTeX} and test {\ifdraft}) }{%
+    \setbeamertemplate{bibliography item}{\insertbiblabel}%
+  }{%
+    \setbeamertemplate{bibliography item}{\scalebox{0.4}{\pgfuseimage{beamericonarticle}}}%
+  }%
+  \ifbool{@NavBarOn}{%
+    \ifpatchable*{\slideentry}{%
+      \xpatchcmd{\slideentry}{\c@subsectionslide}{\c@framenumber}{}{}%
+    }{}%
+    \ifpatchable*{\beamer@writeslidentry}{%
+      \xpatchcmd{\beamer@writeslidentry}{\c@subsectionslide}{\c@framenumber}{}{}%
+    }{}%
+    \setbeamertemplate{headline}{%
+      \leavevmode%
+      \hbox{%
+        \begin{beamercolorbox}[wd = \paperwidth, ht = 2ex, dp = 2.5ex]{section in head/foot}%
+        \ifnumgreater{\insertframenumber}{1}{%
+          \insertnavigation{\paperwidth}%
+        }{%
+          \ifbool{@DocLicCC}{\ifbool{@CCLicInst}{}{\hskip3mm\parbox[t]{\paperwidth-6mm}{\CCLicense}}}{}%
+        }%
+        \end{beamercolorbox}%
+      }%
+    }%
+  }{}%
+  \setbeamertemplate{frametitle}{%
+    {\bfseries\insertframetitle\strut\par}%
+    {\large\bfseries\insertframesubtitle\strut\par}%
+  }%
+  \setbeamertemplate{frametitle continuation}[from second]%
+  \ifbool{@LayoutTCB}{%
+    \setbeamertemplate{block begin}{%
+      \begin{tcolorbox}[title/.expand once = \insertblocktitle]%
+    }%
+    \setbeamertemplate{block alerted begin}{%
+      \begin{tcolorbox}[%
+        colbacktitle       = red!25!gray,%
+        fontupper          = \scriptsize,%
+        fontlower          = \scriptsize,%
+        fonttitle          = \scriptsize\bfseries,%
+        title/.expand once = \insertblocktitle,
+      ]%
+    }%
+    \setbeamertemplate{block example begin}{%
+      \begin{tcolorbox}[%
+        colbacktitle       = green!25!gray,%
+        fontupper          = \scriptsize,%
+        fontlower          = \scriptsize,%
+        fonttitle          = \scriptsize\bfseries,%
+        title/.expand once = \insertblocktitle,%
+      ]%
+    }%
+    \setbeamertemplate{block end}{\end{tcolorbox}}%
+    \setbeamertemplate{block alerted end}{\end{tcolorbox}}%
+    \setbeamertemplate{block example end}{\end{tcolorbox}}%
+  }{}%
+  \setbeamertemplate{caption}[numbered]%
+  \setbeamertemplate{caption label separator}[endash]%
+  \setbeamertemplate{footnote}{%
+    \setlength{\hangindent}{1em}%
+    \scriptsize\makebox[1em][l]{\insertfootnotemark}\insertfootnotetext\par%
+  }%
+  \expandafter\xpatchcmd\csname beamerx@\string\@mpfootnotetext\endcsname{%
+    \hsize0.85\paperwidth%
+  }{%
+    \hsize\columnwidth%
+  }{}{}%
+  \renewcommand*{\footnoterule}{\kern-3\p@\hrule\@width0.4\columnwidth\kern2.5\p@}%
+  \NewDocumentCommand{\ufootnote}{ s O{\faExclamationTriangle} m }{%
+    \begingroup%
+    \csletcs{@makefnmark}{relax}%
+    \setbeamertemplate{footnote}{%
+      \setlength{\hangindent}{1em}%
+      \scriptsize\makebox[1em][l]{\ifblank{#2}{}{\textsuperscript{#2}}}\insertfootnotetext\par%
+    }%
+    \IfBooleanTF{#1}{\footnote{#3}}{\footnote[frame]{#3}}%
+    \addtocounter{footnote}{-1}%
+    \endgroup%
+  }%
+  \CheckCommand*{\beamer@checkframetitle}{\@ifnextchar\bgroup\beamer@inlineframetitle{}}%
+  \renewcommand*{\beamer@checkframetitle}{%
+    \global\csletcs{beamer@frametitle}{relax}%
+    \@ifnextchar\bgroup\beamer@inlineframetitle{}%
+  }%
+  \addtobeamertemplate{frametitle}{%
+    \hypersetup{linkcolor = black}%
+    \ifcsvoid{insertframetitle}{\frametitle{\insertsection}}{}%
+    \ifcsvoid{insertframesubtitle}{\framesubtitle{\insertsubsection}}{}%
+    \ifbool{@NavBarOn}{}{{\tiny\null\vskip1.5ex}}%
+    \ifnumgreater{\insertframenumber}{1}{\FTLogo}{}%
+  }{\vskip-1ex}%
+  \newenvironment<>{Abstract}[1][]{%
+    \ifbool{@NavBarOn}{%
+      \setbeamertemplate{headline}{%
+        \leavevmode%
+        \hbox{%
+          \begin{beamercolorbox}[wd = \paperwidth, ht = 2ex, dp = 2.5ex]{section in head/foot}%
+          \end{beamercolorbox}%
+        }%
+      }%
+    }{}%
+    \ifstrequal{#2}{<article>}{%
+      \csdef{NoFrameNumbering}{noframenumbering}%
+    }{%
+      \csdef{NoFrameNumbering}{}%
+    }%
+    \begin{frame}#2[\NoFrameNumbering, fragile = singleslide]%
+    \begin{abstract}%
+  }{%
+    \end{abstract}%
+    \end{frame}%
+  }%
+  \newcommand*{\Keywords}[2][]{%
+    \ifblank{#2}{}{%
+      \vskip\f@size\p@%
+      \begingroup%
+      \csletcs{and}{@Semicolon}%
+      {\usebeamercolor[fg]{abstract title}\usebeamerfont{abstract title}\KWCall:} #2\@addpunct{.}%
+      \endgroup%
+    }%
+  }%
+  \setlength{\leftmargini}{1.25em}%
+  \setlength{\leftmarginii}{1.25em}%
+  \setlength{\leftmarginiii}{1.25em}%
+  \ifbool{@JustifyOn}{%
+    \addtobeamertemplate{abstract begin}{}{\justifying}%
+    \addtobeamertemplate{block begin}{}{\justifying}%
+    \addtobeamertemplate{block alerted begin}{}{\justifying}%
+    \addtobeamertemplate{block example begin}{}{\justifying}%
+    \ifpatchable*{\frame}{%
+      \apptocmd{\frame}{}{\justifying}{}%
+    }{}%
+    \ifpatchable*{\itemize}{%
+      \xpatchcmd{\itemize}{\raggedright}{\justifying}{}{}%
+    }{}%
+    \ifpatchable*{\beamer@enum@}{%
+      \xpatchcmd{\beamer@enum@}{\raggedright}{\justifying}{}{}%
+    }{}%
+    \ifpatchable*{\@@description}{%
+      \xpatchcmd{\@@description}{\raggedright}{\justifying}{}{}%
+    }{}%
+    \ifpatchable*{\overlayarea}{%
+      \xpatchcmd{\overlayarea}{\raggedright}{\justifying}{}{}%
+    }{}%
+    \expandafter\xpatchcmd\csname beamerx@\string\beamer@columnenv\endcsname{\raggedright}{\justifying}{}{}%
+    \expandafter\xpatchcmd\csname beamerx@\string\beamer@columncom\endcsname{\raggedright}{\justifying}{}{}%
+  }{%
+    \addtobeamertemplate{abstract begin}{}{\raggedright}%
+    \ifbool{@LayoutTCB}{%
+      \tcbsetforeverylayer{%
+        halign       = flush left,%
+        halign lower = flush left,%
+        halign title = flush left,%
+      }%
+    }{}%
+  }%
+  \cspreto{beamer@andtitle}{\unskip,}%
+  \ifpatchable*{\beamer@author}{%
+    \xpatchcmd{\beamer@author}{\def\and{, }}{\csdef{and}{\@Comma}}{}{}%
+  }{}%
+  \renewcommand*{\beamer@andinst}{\\}%
+  \csgappto{beamer@firstminutepatches}{\pdfstringdefDisableCommands{\renewcommand*{\\}{\ \ignorespaces}}}%
+  \AtEndPreamble{\hypersetup{pdftitle = {\inserttitle\ifcsvoid{insertsubtitle}{}{: \insertsubtitle}}}}%
+  \colorlet{RuleColor}{UTFPRYellow}%
+  \arrayrulecolor{RuleColor}%
+  \AtBeginEnvironment{figure}{\scriptsize}%
+  \AtBeginEnvironment{table}{\scriptsize}%
+  \newcommand*{\SourceOrNote}[2][\SrcCall:]{\ifblank{#2}{}{\par\scriptsize\bfseries\ifblank{#1}{}{#1 }#2}}%
+  \cspreto{tableofcontents}{\pdfbookmark[2]{\contentsname}{toc}}%
+  \ifpatchable*{\beamer@sectionintoc}{%
+    \xpatchcmd{\beamer@sectionintoc}{\vskip1.5em}{\vskip\itemsep}{}{}%
+    \xpatchcmd{\beamer@sectionintoc}{\vfill}{\vskip\itemsep}{}{}%
+  }{}%
+  \setlength{\biblabelsep}{0.5\labelsep}%
+  \setlength{\bibitemsep}{0.5\itemsep}%
+  \renewcommand*{\bibfont}{\scriptsize}%
+  \ifbool{@ABNTCitNRB}{}{%
+    \defbibenvironment{bibliography}{%
+      \list{\printfield[labelalphawidth]{labelalpha}}{%
+%         \setlength{\labelwidth}{\labelalphawidth}%
+        \setlength{\leftmargin}{\labelwidth}%
+        \setlength{\labelsep}{\biblabelsep}%
+        \setlength{\itemsep}{\bibitemsep}%
+        \setlength{\parsep}{\bibparsep}%
+        \addtolength{\leftmargin}{\labelsep}%
+      }%
+      \renewcommand*{\makelabel}[1]{\hss##1}%
+    }{\endlist}{\item}%
+  }%
+}
+
+%% Customizações da classe artigo
+\mode<article>{%
+  \geometry{%
+    top          = 20mm,%
+    left         = 20mm,%
+    right        = 20mm,%
+    bottom       = 20mm,%
+    head         = 5mm,%
+    headsep      = 5mm,%
+    footskip     = 10mm,%
+    marginpar    = 15mm,%
+    marginparsep = 2.5mm,%
+  }%
+  \setlength{\parindent}{6mm}%
+  \setlength{\parskip}{\z@}%
+  \pagestyle{fancy}%
+  \fancyhf{}%
+  \fancyhead[L]{\color{gray}\footnotesize\sffamily\shorttitle}%
+  \fancyhead[R]{\color{gray}\footnotesize\sffamily\shortauthor}%
+  \fancyfoot[L]{\color{gray}\footnotesize\sffamily\thesubject}%
+  \fancyfoot[R]{\color{gray}\footnotesize\sffamily\ifbool{@PageNumOn}{\thepage}{}}%
+  \fancypagestyle{title}{%
+    \fancyhf{}%
+    \ifbool{@DocLicCC}{%
+      \fancyfoot[L]{%
+        \color{gray}\colorlet{HyRefColor}{\ifcsvoid{@LinkColor}{}{LinkColor!50!}.}%
+        \footnotesize\sffamily\CCLicDescr%
+      }%
+    }{%
+      \fancyfoot[L]{\color{gray}\footnotesize\sffamily\thesubject}%
+      \fancyfoot[R]{\color{gray}\footnotesize\sffamily\ifbool{@PageNumOn}{\thepage}{}}%
+    }%
+  }%
+  \renewcommand*{\headrule}{}%
+  \newcommand*{\UTFPRHeader}{%
+    \noindent%
+    \begin{minipage}[b][12mm][c]{35mm}%
+    \raggedright\includegraphics[height = 12mm]{utfpr-l}%
+    \end{minipage}%
+    \ifcsvoid{@DeptLogo}{{\color{UTFPRBlack}\vrule\@width0.5\p@}\hskip6\p@}{}%
+    \begin{minipage}[b][12mm][c]{100mm}%
+    \ifcsvoid{@DeptLogo}{}{\centering}\footnotesize\sffamily%
+    \MECName\vskip-\p@%
+    {\bfseries\UTFPRName}\vskip-\p@%
+    \@Cmps\vskip-\p@%
+    {\ifcsvoid{@DeptLogo}{}{\bfseries}\@Dept}%
+    \end{minipage}%
+    \ifcsvoid{@DeptLogo}{}{%
+      \begin{minipage}[b][12mm][c]{35mm}%
+      \raggedleft%
+      \ifboolexpr{%
+        test {\ifcsstring{@DeptLogo}{Department}}   or %
+        test {\ifcsstring{@DeptLogo}{Departamento}} or %
+        test {\ifcsstring{@DeptLogo}{Coordination}} or %
+        test {\ifcsstring{@DeptLogo}{Coordenação}}  or %
+        test {\ifcsstring{@DeptLogo}{Program}}      or %
+        test {\ifcsstring{@DeptLogo}{Programa}}     or %
+        test {\ifcsstring{@DeptLogo}{Course}}       or %
+        test {\ifcsstring{@DeptLogo}{Curso}}           %
+      }{%
+        \color{UTFPRYellow}%
+        \setkeys{draftfigure}{content = {\LogoWrng\@DeptLogo}, size = {tiny}}%
+        \includegraphics[width = 32.2mm, height = 12mm, draft]{example-image}%
+      }{%
+        \includegraphics[height = 12mm]{\@DeptLogo}%
+      }%
+      \end{minipage}%
+    }%
+    \vskip2\p@%
+    {\color{UTFPRBlack}\hrule\@height0.5\p@}\vskip\p@%
+    {\color{UTFPRYellow}\hrule\@height0.5\p@}\vskip\p@%
+  }%
+  \csgappto{maketitle}{\thispagestyle{title}}%
+  \ifpatchable*{\@maketitle}{%
+    \xpatchcmd{\@maketitle}{\null\vskip2em}{\UTFPRHeader\vskip\baselineskip}{}{}%
+    \xpatchcmd{\@maketitle}{\LARGE\@title}{%
+      \renewcommand<>{\\}{\only#1{\beameroriginal\\}}%
+      \normalsize\bfseries\MakeUppercase{\@title}%
+    }{}{}%
+    \xpatchcmd{\@maketitle}{%
+      \vskip1.5em{\large\lineskip.5em\begin{tabular}[t]{c}\@author\end{tabular}\par}%
+    }{%
+      \ifcsvoid{@author}{}{\vskip\baselineskip{\normalsize\begin{tabular}[t]{@{}c@{}}\@author\end{tabular}\par}}%
+    }{}{}%
+    \xpatchcmd{\@maketitle}{%
+      \vskip1em{\large\@date}%
+    }{%
+      \ifcsvoid{@date}{}{\vskip\baselineskip{\normalsize\@date}}%
+    }{}{}%
+    \xpatchcmd{\@maketitle}{\par\vskip1.5em}{\par}{}{}%
+  }{}%
+  \renewcommand*{\title}[2][]{%
+    \csdef{shorttitle}{\ifblank{#1}{}{#1}}%
+    \beamer@origtitle{#2}%
+  }%
+  \renewcommand*{\subtitle}[2][]{%
+    \providecommand*{\insertsubtitle}{#2}%
+    \csgappto{@title}{\texorpdfstring{:\\}{: }#2}%
+  }%
+  \renewcommand*{\author}[2][]{%
+    \csdef{shortauthor}{\ifblank{#1}{}{#1}}%
+    \beamer@origauthor{#2}%
+  }%
+  \csletcs{old@thanks}{thanks}%
+  \renewcommand*{\thanks}[1]{\begingroup\csletcs{rlap}{relax}\old@thanks{#1}\endgroup}%
+  \renewcommand*{\Affil}[1]{\ifblank{#1}{}{\faUniversity~#1}}%
+  \renewcommand*{\email}[1]{\ifblank{#1}{}{\href{mailto:#1}{\faEnvelope~#1}}}%
+  \renewcommand*{\Lattes}[1]{\ifblank{#1}{}{\href{\LattesURL#1}{\faLattes~#1}}}%
+  \renewcommand*{\ORCID}[1]{\ifblank{#1}{}{\href{\ORCIDURL#1}{\faOrcid~#1}}}%
+  \renewcommand*{\S@AuthorInfo}[1]{%
+    \ifblank{#1}{}{%
+      \addtocounter{AuthNum}{1}%
+      \csgdef{ATag}{Auth\Alph{AuthNum}}%
+      \setkeys{AuthorInfo}{%
+        Email  = {},%
+        Lattes = {},%
+        ORCID  = {},%
+        Affil  = {},%
+        Role   = {},%
+        Inst   = {},%
+        #1,%
+      }%
+      \ifnumgreater{\value{AuthNum}}{8}{}{%
+        \ifcsvoid{\csuse{ATag}Affil}{}{%
+          \thanks{%
+            \protect\raggedright%
+            \ifcsvoid{\csuse{ATag}Role}{}{\faAddressCard~\csuse{\csuse{ATag}Role}.\ }%
+            \Affil{\csuse{\csuse{ATag}Affil}}%
+            \ifcsvoid{\csuse{ATag}Email}{}{.\ \email{\csuse{\csuse{ATag}Email}}}%
+            \ifcsvoid{\csuse{ATag}Lattes}{}{.\ \Lattes{\csuse{\csuse{ATag}Lattes}}}%
+            \ifcsvoid{\csuse{ATag}ORCID}{}{.\ \ORCID{\csuse{\csuse{ATag}ORCID}}}.%
+          }%
+        }%
+      }%
+      \csgundef{ATag}%
+    }%
+  }%
+  \csletcs{@AuthorInfo}{S@AuthorInfo}%
+  \csdef{and}{\unskip,\quad}%
+  \pdfstringdefDisableCommands{%
+    \csletcs{and}{@Comma}%
+    \renewcommand*{\\}{\ \ignorespaces}%
+  }%
+  \newcommand*{\thesubject}{}%
+  \renewcommand*{\subject}[1]{\csdef{thesubject}{\ifblank{#1}{}{#1}}}%
+  \AtBeginDocument{\hypersetup{pdftitle = {\@title}, pdfauthor = {\@author}, pdfsubject = {\thesubject}}}%
+  \renewenvironment*{quotation}{%
+    \list{}{%
+      \setlength{\listparindent}{\z@}%
+      \setlength{\itemindent}{\listparindent}%
+      \setlength{\leftmargin}{\z@}%
+      \setlength{\rightmargin}{\leftmargin}%
+      \setlength{\parsep}{\z@\@plus\p@}%
+    }%
+    \item\relax%
+  }{%
+    \endlist%
+  }%
+  \ifpatchable*{\abstract}{%
+    \xpatchcmd{\abstract}{\bfseries\abstractname}{\bfseries\MakeUppercase{\abstractname}}{}{}%
+  }{}%
+  \newenvironment<>{Abstract}[1][\bfseries\MakeUppercase]{%
+    \begin{frame}#2[fragile = singleslide]%
+    \begin{quotation}%
+    \small{#1{\abstractname}:} %
+  }{%
+    \end{quotation}%
+    \end{frame}%
+  }%
+  \newcommand*{\Keywords}[2][\bfseries\MakeUppercase]{%
+    \ifblank{#2}{}{%
+      \vskip\f@size\p@%
+      \begin{quotation}%
+      \csletcs{and}{@Semicolon}%
+      \small{#1{\KWCall}:} #2\@addpunct{.}%
+      \end{quotation}%
+      \hypersetup{pdfkeywords = {#2}}%
+    }%
+  }%
+  \dimdef{\ToCNumWd}{%
+    \ifnumequal{\c@tocdepth}{1}{1.5em}{}%
+    \ifnumequal{\c@tocdepth}{2}{2.3em}{}%
+    \ifnumequal{\c@tocdepth}{3}{3.2em}{}%
+    \ifnumequal{\c@tocdepth}{4}{4.1em}{}%
+    \ifnumequal{\c@tocdepth}{5}{5.0em}{}%
+  }%
+  \newcommand*{\numberlinespace}{\ifnumgreater{\value{secnumdepth}}{0}{\texorpdfstring{\protect\numberline{}}{}}{}}%
+  \csletcs{old@contentsline}{contentsline}%
+  \renewcommand*{\contentsline}[3]{%
+    \ifcsequal{l@#1}{l@section}{%
+      \expandafter\@firstoftwo%
+    }{%
+      \expandafter\@secondoftwo%
+    }%
+    {\vskip1ex\old@contentsline{#1}{\small\bfseries\MakeUppercase{#2}}{\small\bfseries#3}}%
+    {\old@contentsline{#1}{\small\bfseries#2}{\small\bfseries#3}}%
+  }%
+  \renewcommand*{\l@section}{\@dottedtocline{1}{\z@}{\ToCNumWd}}%
+  \renewcommand*{\l@subsection}{\@dottedtocline{2}{\z@}{\ToCNumWd}}%
+  \renewcommand*{\l@subsubsection}{\@dottedtocline{3}{\z@}{\ToCNumWd}}%
+  \renewcommand*{\l@paragraph}{\@dottedtocline{4}{\z@}{\ToCNumWd}}%
+  \renewcommand*{\l@subparagraph}{\@dottedtocline{5}{\z@}{\ToCNumWd}}%
+  \cspreto{tableofcontents}{\addtocontents{toc}{\vskip-1ex}}%
+  \setcounter{tocdepth}{2}
+  \setcounter{secnumdepth}{0}%
+  \hypersetup{bookmarksdepth = 1}%
+  \NewDocumentCommand{\Section}{ s O{#3} m O{} }{%
+    \IfBooleanTF{#1}{%
+      \@startsection{section}{1}%
+        {\z@}{-\baselineskip}{\baselineskip}%
+        {\bfseries}%
+        *{\MakeUppercase{#3}}%
+      \renewcommand*{\@currentlabelname}{#3}%
+      \ifblank{#4}{}{%
+        \label{#4}%
+        \addcontentsline{toc}{section}{\numberlinespace#3}%
+      }%
+    }{%
+      \@startsection{section}{1}%
+        {\z@}{-\baselineskip}{\baselineskip}%
+        {\bfseries}%
+        [#2]{\MakeUppercase{#3}}%
+    }%
+  }%
+  \newcommand*{\SubSection}{\@startsection{subsection}{2}{\z@}{-\baselineskip}{\baselineskip}{\bfseries}}%
+  \newcommand*{\SubSubSection}{\@startsection{subsubsection}{3}{\z@}{-\baselineskip}{\baselineskip}{\bfseries}}%
+  \renewcommand<>{\section}{\alt#1{\Section}{\beamer@secgobble}}%
+  \renewcommand<>{\subsection}{\alt#1{\SubSection}{\beamer@secgobble}}%
+  \renewcommand<>{\subsubsection}{\alt#1{\SubSubSection}{\beamer@secgobble}}%
+  \renewcommand*{\paragraph}{\@startsection{subsubsection}{4}{\z@}{-\baselineskip}{\baselineskip}{\bfseries}}%
+  \renewcommand*{\subparagraph}{\@startsection{subsubsection}{5}{\z@}{-\baselineskip}{\baselineskip}{\bfseries}}%
+  \ifbool{@LayoutTCB}{%
+    \tcbsetforeverylayer{%
+      opacityback      = 0,%
+      opacitybacktitle = 0,%
+      colframe         = gray,%
+      boxrule          = \arrayrulewidth,%
+    }%
+    \setbeamertemplate{block begin}{%
+      \begin{tcolorbox}[title/.expand once = \insertblocktitle]%
+    }%
+    \setbeamertemplate{block alerted begin}{%
+      \begin{tcolorbox}[colbacktitle = red!25!gray, title/.expand once = \insertblocktitle]%
+    }%
+    \setbeamertemplate{block example begin}{%
+      \begin{tcolorbox}[colbacktitle = green!25!gray, title/.expand once = \insertblocktitle]%
+    }%
+    \setbeamertemplate{block end}{\end{tcolorbox}}%
+    \setbeamertemplate{block alerted end}{\end{tcolorbox}}%
+    \setbeamertemplate{block example end}{\end{tcolorbox}}%
+  }{%
+    \setlength{\FrameRule}{\arrayrulewidth}%
+    \setlength{\FrameSep}{2\p@}%
+    \setbeamertemplate{block begin}{%
+      \begin{framed}%
+      \ifcsvoid{insertblocktitle}{}{\noindent{\bfseries\insertblocktitle}\par}%
+    }%
+    \setbeamertemplate{block alerted begin}{%
+      \begin{framed}%
+      \ifcsvoid{insertblocktitle}{}{\noindent{\bfseries\insertblocktitle}\par}%
+    }%
+    \setbeamertemplate{block example begin}{%
+      \begin{framed}%
+      \ifcsvoid{insertblocktitle}{}{\noindent{\bfseries\insertblocktitle}\par}%
+    }%
+    \setbeamertemplate{block end}{\end{framed}}%
+    \setbeamertemplate{block alerted end}{\end{framed}}%
+    \setbeamertemplate{block example end}{\end{framed}}%
+  }%
+  \setlength{\leftmargini}{\parindent+1.25em}%
+  \setlength{\leftmarginii}{\parindent-\labelsep}%
+  \setlength{\leftmarginiii}{\parindent-\labelsep}%
+  \csdef{@listi}{%
+    \leftmargin\leftmargini%
+    \topsep\z@\@plus\p@\@minus\p@%
+    \parsep\z@\@plus\p@\@minus\p@%
+    \itemsep\z@\@plus\p@\@minus\p@%
+  }%
+  \csletcs{@listI}{@listi}%
+  \csdef{@listii}{%
+    \leftmargin\leftmarginii%
+    \topsep\z@\@plus\p@\@minus\p@%
+    \parsep\z@\@plus\p@\@minus\p@%
+    \itemsep\z@\@plus\p@\@minus\p@%
+  }%
+  \csdef{@listiii}{%
+    \leftmargin\leftmarginiii%
+    \topsep\z@\@plus\p@\@minus\p@%
+    \parsep\z@\@plus\p@\@minus\p@%
+    \itemsep\z@\@plus\p@\@minus\p@%
+  }%
+  \renewcommand*{\footnoterule}{\kern-3\p@\hrule\@width50mm\kern2.5\p@}%
+  \renewcommand*{\@makefntext}[1]{%
+    \setlength{\hangindent}{1em}%
+    \makebox[1em][l]{\@makefnmark}#1%
+  }%
+  \csletcs{old@makefntext}{@makefntext}%
+  \cspreto{@maketitle}{\csletcs{@makefntext}{old@makefntext}}%
+  \NewDocumentCommand{\ufootnote}{ s O{\faExclamationTriangle} m }{%
+    \begingroup%
+    \csletcs{@makefnmark}{relax}%
+    \renewcommand*{\thefootnote}{\ifblank{#2}{}{#2}}%
+    \renewcommand*{\@makefntext}[1]{%
+      \setlength{\hangindent}{1em}%
+      \makebox[1em][l]{\ifcsvoid{thefootnote}{}{\textsuperscript{\thefootnote}}}##1%
+    }%
+    \IfBooleanTF{#1}{\footnote{#3}}{\footnote[frame]{#3}}%
+    \addtocounter{footnote}{-1}%
+    \endgroup%
+  }%
+  \colorlet{RuleColor}{.}%
+  \csgappto{@floatboxreset}{\centering\small}%
+  \captionsetup{%
+    font          = {small, bf},%
+    labelsep      = endash,%
+    justification = centerlast,%
+  }%
+  \newcommand*{\SourceOrNote}[2][\SrcCall:]{\ifblank{#2}{}{\par\small\bfseries\ifblank{#1}{}{#1 }#2}}%
+  \defbibheading{bibliography}[\refname]{\section{#1}\label{sect:ref}}%
+}

@@ -1,0 +1,254 @@
+% Yachay-Physics School-Template, 2025/04/02
+% Copyright (C) 2025-2035 Mario D. Andrango Torres (and_damian@outlook.com)
+%
+% This work may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License, either version 1.3 of this license or (at your
+% option) any later version.
+% The latest version of this license is in
+% https://www.latex-project.org/
+
+
+\documentclass[
+  aspectratio = 169,% Ratio de aspecto: 43 (4:3), 169 (16:9), etc.
+  10pt,% Tamaño de la fuente
+  t,% alinea el contenido al top (arriba) del cuadro de cada diapositiva.
+  onlytextwidth,% restringe el contenido a la anchura del texto ()
+  compress,% Comprime la barra de navegación.
+  %handout,% Genera una versión sin efectos de transición ni overlays (útil para imprimir o compartir) comentar cuando se desea efectos de transición ordenada. 
+  xcolor = table,% Usamos el paquete colortb, para dar color a las tablas.
+  english % Idioma secundario(penúltimo)
+  spanish,% Idioma principal
+]{beamer}
+
+\usepackage[%% Opções (^ = padrão; ¹ = Apresentação; ² = Artigo):
+%   Layout    = Beamer,%% Leiaute (blocos): TCB (tcolorbox) (^) ou Beamer
+%   Font      = Arial,%% Fonte principal: Arial, Calibri, Times ou LaTeX(*) (^)
+%   LinkColor = ,%% Cor (Modelo HTML) hyperlink (azul escuro ^): cor texto (nenhuma)
+%   NavBar    = Off,%% Barra de navegação (cabeçalho) (¹): On (^) ou Off
+%   Justify   = Off,%% Texto justificado (¹): On (^) ou Off
+%   PageNum   = Off,%% Numeração de páginas (²): On (^) ou Off
+%   DocLic    = None,%% Licença do documento: CC (Creative Commons) (^) ou None
+%   CCLic     = BY-NC-ND,%% Licença CC: BY (^), BY-SA, BY-ND, BY-NC, BY-NC-SA ou BY-NC-ND
+%   ABNTCit   = NSB,%% Citação ABNT: AAY (Nome, Ano) (^), NRB (1), NSB [1] ou FN (¹)
+%   DOIIcon   = On,%% Ícone de DOI em referências: On ou Off (^)
+%   URLIcon   = On,%% Ícone de URL em referências: On ou Off (^)
+]{slides}
+\usepackage{multimedia}
+
+% Imagen de fondo de background para los slides ubicado en (./Backgrounds/)
+\SlidesBackGround{x}
+
+% Logo universidad Fondo claro.
+\SlidesLogo{yachay}
+
+% -----------------------INTRODUCCIÓN
+% ---------------------- TITTLE 
+\title[Modulo 1: Introducción a Telescopios]{
+  Telescopios: Una ventana hacia el Universo.\\
+  Optica Chapter YT
+}
+
+% ---------------------- SUBTITTLE 
+\subtitle{
+  Guía teórico-práctica para el desarrollo de telescopios a bajo costo\\
+  %
+}
+\subject{Capitulo Optica-YT}
+
+% Autor(es) a mostrar en la página de título.
+\author[M.~D.~Andrango]{%
+	Mario Damian Andrango%
+	\AuthorInfo{%
+		Email  = {mario.andrango@yachaytech.edu.ec},
+		Lattes = {0998227417},%% (*)
+		Role   = {Egresado / Maker},
+		Affil  = {Yachay Tech University / Optica Chapter / Mushkuna},
+		Inst   = {1,2,3},
+	}%
+	\Inst{\faTalking}
+}
+
+
+% Instituciones afiliadas (Página de título)
+\institute[Yachay Tech {\&} OPTICA Chapter YT]{%
+	\Affil[1]{Yachay Tech University, Urcuquí, Ecuador}%
+	\and
+	\Affil[2]{OPTICA Chapter Yachay Tech}%
+	\and
+	\Affil[3]{Mushkuna, Urcuquí, Ecuador}%
+	\and
+	\InfoList[\tiny]{\faEnvelope}{\MakeInfoList{Email}}%
+	\and
+	\InfoList[\tiny]{\faPhone}{\MakeInfoList{Lattes}}%
+	% Puedes descomentar estas si en el futuro agregas ORCID o Lattes:
+	% \and\InfoList[\tiny]{\faOrcid}{\MakeInfoList{ORCID}}%
+	% \and\InfoList[\tiny]{\faLattes}{\MakeInfoList{Lattes}}%
+}
+
+
+% ID de la presentación o fecha de la misma
+% \date[ID@: OPTC2025-0001]{ID@: OPTC2025-0001}
+\date[Abril 2025]{Abril 2025}
+
+% Logos de las marcas auspiciantes (./Logos/): {Página de Título}
+\titlegraphic{%
+	%\Logo{Evento}\hfill% Evento
+	\Logo{escuela_fisica}\hfill% Logo escuela
+	\Logo{OSA}\hfill% Organización promotora
+	\Logo{yachay}\hfill% Institución
+	%\Logo{public-education-l}\hspace*{2mm}%% Extra (Ensino Público)
+}
+
+
+% Campus: {Campus Ciudad}
+\Campus{Yachay Tech - Urcuquí}
+
+% Departamento, coordenação, programa ou curso: [Logo]; {Nome}
+\Department[escuela_fisica]{Escuela de Ciencias Físicas y Nanotecnología}
+
+% Archivo de referencias
+\addbibresource{slides.bib}
+
+% -------------------------- Início do documento
+\begin{document}
+
+\TitlePage% Página de Título 
+
+\begin{frame}
+	\frametitle{Resumen}
+	
+	{\bfseries
+		Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+	}
+	
+	\vspace{1em}
+	
+	\textbf{Palabras clave:} palabra-clave 1, palabra-clave 2, palabra-clave 3
+\end{frame}
+
+\begin{frame}<presentation>[allowframebreaks]%% Apresentação: Sumário
+\frametitle<presentation>{\contentsname}
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Introducción}%
+\label{sect:intro}
+\input{modules/module1}
+
+
+\section{Revisión de Literatura}%
+\label{sect:lit-review}
+\input{modules/module2}
+
+
+\section{Material y Métodos}%
+\label{sect:mat-meth}
+\input{modules/module3}
+
+\section{Resultados e Discussão}%
+\label{sect:res-disc}
+\input{modules/module4}
+
+\section{Conclusões}%
+\label{sect:concl}
+%\input{modules/module5}
+
+\begin{frame}
+
+As conclusões ou considerações finais podem ser apresentadas como uma lista de itens, enfatizando as contribuições do trabalho:
+
+\begin{itemize}
+\item Primeiro item de conclusão.
+\item Segundo item de conclusão.
+\item Terceiro item de conclusão.
+\item Quarto item de conclusão.
+\item Quinto item de conclusão.
+\end{itemize}
+
+\end{frame}
+
+\section<presentation>{\refname}%% Apresentação: Referências (seção e rótulo)
+\label<presentation>{sect:ref}
+
+\only<presentation>{\frame[allowframebreaks]{\printbibliography[heading = none]}}%% Apresentação: Referências
+
+\section{Agradecimentos}%
+\label{sect:ack}
+
+\RespNotice[Declaração de Responsabilidade]{O{(s)} autor{(es)} é{(são)} o{(s)} único{(s)} responsável{(eis)} pelas informações contidas neste documento.}
+
+\begin{frame}
+
+\dimen1 = 10mm%
+
+\pause%
+
+\begin{itemize}
+\only<presentation>{%% Apresentação: Agradecimentos (aos participantes)
+  \item<+->[\scriptsize\faUsers] Aos participantes:%
+  \begin{itemize}%
+  \item Por suas questões, seus comentários e sua atenção.%
+  \ufootnote{\RespNoticeFull}%% Declaração de Responsabilidade
+  \end{itemize}%
+}
+\item<+->[\scriptsize\faUniversity] Às instituições:
+\begin{itemize}
+\item Pelo apoio recebido para o desenvolvimento deste trabalho e a participação neste evento:\par%
+\begin{minipage}[c][20mm]{\linewidth}
+\Logo[height = \dimen1]{capes-l}%
+\hfill%
+\Logo[height = \dimen1]{cnpq-l}%
+\hfill%
+\Logo[height = \dimen1]{fa-l}%
+\hfill%
+\Logo[height = \dimen1]{Extra}%
+\hfill%
+\Logo[height = \dimen1]{public-education-l}%
+\hspace*{0.2\dimen1}%
+\Logo[height = \dimen1]{utfpr-l}
+\end{minipage}
+\end{itemize}
+\end{itemize}
+
+\begin{columns}[t]
+
+\column{0.9\textwidth-0.5\columnsep}
+
+\begin{exampleblock}<presentation|+->{\faTalking\ Palestrante}%% Apresentação: Palestrante
+
+\begin{minipage}{0.75\dimen1}
+\color{UTFPRYellow}
+\setkeys{draftfigure}{content = {\faUserTie\\Inserir\\Foto}, size = {tiny}}
+\includegraphics[width = 0.75\dimen1, height = \dimen1, draft]{example-image}
+\end{minipage}%
+\hfill%
+\begin{minipage}{\linewidth-1em-0.75\dimen1}
+\InfoList{\faUserTie}{Nome Completo do{(a)} Autor{(a)}}\par%
+\InfoList{\faUniversity}{\UTFPRName}\par%
+\InfoList{\faEnvelope}{\email{author1@domain}}
+\end{minipage}
+
+\end{exampleblock}
+
+\column{0.1\textwidth-0.5\columnsep}
+
+\begin{alertblock}<presentation|+->{\faPlus\ \faInfoCircle}%% Apresentação: Mais Informações
+
+\centering%
+\href{https://www.utfpr.edu.br/}{\includegraphics[height = \dimen1]{utfpr-qr-code}}
+
+\end{alertblock}
+
+\end{columns}
+
+\end{frame}
+
+\only<article>{\printbibliography}%% Artigo: Referências
+
+\section<article>{\RespNoticeTitle}%% Artigo: Declaração de Responsabilidade (seção e rótulo)
+\label<article>{sect:resp-not}
+
+\only<article>{\RespNoticeText}%% Artigo: Declaração de Responsabilidade
+
+%% Fim do documento
+\end{document}
