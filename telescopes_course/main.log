@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.30)  7 APR 2025 10:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.30)  21 APR 2025 12:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1722,7 +1722,7 @@ Cap\'{\i }tulo 1.
 <images/telescopio_antiguo.jpg, id=267, 562.1pt x 953.5625pt>
 File: images/telescopio_antiguo.jpg Graphic file (type jpg)
 <use images/telescopio_antiguo.jpg>
-Package pdftex.def Info: images/telescopio_antiguo.jpg  used on input line 15.
+Package pdftex.def Info: images/telescopio_antiguo.jpg  used on input line 13.
 (pdftex.def)             Requested size: 273.14923pt x 463.37938pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1731,11 +1731,8 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <images/telescopio_galileo.jpg, id=275, 602.25pt x 916.92563pt>
 File: images/telescopio_galileo.jpg Graphic file (type jpg)
 <use images/telescopio_galileo.jpg>
-Package pdftex.def Info: images/telescopio_galileo.jpg  used on input line 26.
+Package pdftex.def Info: images/telescopio_galileo.jpg  used on input line 27.
 (pdftex.def)             Requested size: 273.14923pt x 415.88666pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1758,10 +1755,30 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 <images/ilustracion_galileo.jpg, id=287, 413.29407pt x 413.29407pt>
 File: images/ilustracion_galileo.jpg Graphic file (type jpg)
 <use images/ilustracion_galileo.jpg>
-Package pdftex.def Info: images/ilustracion_galileo.jpg  used on input line 43.
+Package pdftex.def Info: images/ilustracion_galileo.jpg  used on input line 44.
 
 (pdftex.def)             Requested size: 273.14923pt x 273.15329pt.
 
+
+LaTeX Warning: Reference `fig:telescopio_reflector_newotoniano' on page 6 undef
+ined on input line 49.
+
+
+LaTeX Warning: Reference `fig:espejo_metalico_especulum' on page 6 undefined on
+ input line 71.
+
+<./images/gran_telescopio_canarias.jpg, id=290, 770.88pt x 513.92pt>
+File: ./images/gran_telescopio_canarias.jpg Graphic file (type jpg)
+<use ./images/gran_telescopio_canarias.jpg>
+Package pdftex.def Info: ./images/gran_telescopio_canarias.jpg  used on input l
+ine 87.
+(pdftex.def)             Requested size: 273.14923pt x 182.0939pt.
+<./images/giant_magallan_telescope.jpg, id=291, 1027.84pt x 578.16pt>
+File: ./images/giant_magallan_telescope.jpg Graphic file (type jpg)
+<use ./images/giant_magallan_telescope.jpg>
+Package pdftex.def Info: ./images/giant_magallan_telescope.jpg  used on input l
+ine 90.
+(pdftex.def)             Requested size: 273.14923pt x 153.64394pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.59999pt, for example:
@@ -1771,19 +1788,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
 [6 <./images/ilustracion_galileo.jpg>]
-<./images/newton_reflector_telescopio.jpg, id=297, 1027.84pt x 894.34125pt>
-File: ./images/newton_reflector_telescopio.jpg Graphic file (type jpg)
-<use ./images/newton_reflector_telescopio.jpg>
-Package pdftex.def Info: ./images/newton_reflector_telescopio.jpg  used on inpu
-t line 75.
-(pdftex.def)             Requested size: 273.14923pt x 237.66798pt.
-<./images/speculum_mirror_metal.jpg, id=298, 963.6pt x 1001.7425pt>
-File: ./images/speculum_mirror_metal.jpg Graphic file (type jpg)
-<use ./images/speculum_mirror_metal.jpg>
-Package pdftex.def Info: ./images/speculum_mirror_metal.jpg  used on input line
- 78.
-(pdftex.def)             Requested size: 273.14923pt x 283.95575pt.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.59999pt, for example:
@@ -1792,30 +1796,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[7 <./images/newton_reflector_telescopio.jpg> <./images/speculum_mirror_metal.j
-pg>]
-<./images/gran_telescopio_canarias.jpg, id=306, 770.88pt x 513.92pt>
-File: ./images/gran_telescopio_canarias.jpg Graphic file (type jpg)
-<use ./images/gran_telescopio_canarias.jpg>
-Package pdftex.def Info: ./images/gran_telescopio_canarias.jpg  used on input l
-ine 87.
-(pdftex.def)             Requested size: 273.14923pt x 182.0939pt.
-<./images/giant_magallan_telescope.jpg, id=307, 1027.84pt x 578.16pt>
-File: ./images/giant_magallan_telescope.jpg Graphic file (type jpg)
-<use ./images/giant_magallan_telescope.jpg>
-Package pdftex.def Info: ./images/giant_magallan_telescope.jpg  used on input l
-ine 90.
-(pdftex.def)             Requested size: 273.14923pt x 153.64394pt.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
-
-[8 <./images/gran_telescopio_canarias.jpg> <./images/giant_magallan_telescope.j
+[7 <./images/gran_telescopio_canarias.jpg> <./images/giant_magallan_telescope.j
 pg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1825,17 +1806,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[9{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
-
-[10]
-<images/refraction_reflection.png, id=334, 250.68657pt x 130.23656pt>
+[8{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+<images/refraction_reflection.png, id=314, 250.68657pt x 130.23656pt>
 File: images/refraction_reflection.png Graphic file (type png)
 <use images/refraction_reflection.png>
 Package pdftex.def Info: images/refraction_reflection.png  used on input line 2
@@ -1850,14 +1822,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[11 <./images/refraction_reflection.png>]
-<./images/ref_especular_difusa.png, id=347, 866.23625pt x 511.9125pt>
+[9]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
+
+[10 <./images/refraction_reflection.png>]
+<./images/ref_especular_difusa.png, id=336, 866.23625pt x 511.9125pt>
 File: ./images/ref_especular_difusa.png Graphic file (type png)
 <use ./images/ref_especular_difusa.png>
 Package pdftex.def Info: ./images/ref_especular_difusa.png  used on input line 
 285.
 (pdftex.def)             Requested size: 421.67413pt x 249.19116pt.
-<images/descomposicion_luz.jpg, id=348, 490.83376pt x 263.98625pt>
+<images/descomposicion_luz.jpg, id=337, 490.83376pt x 263.98625pt>
 File: images/descomposicion_luz.jpg Graphic file (type jpg)
 <use images/descomposicion_luz.jpg>
 Package pdftex.def Info: images/descomposicion_luz.jpg  used on input line 301.
@@ -1865,8 +1846,12 @@ Package pdftex.def Info: images/descomposicion_luz.jpg  used on input line 301.
 (pdftex.def)             Requested size: 273.14923pt x 146.91287pt.
 
 
-LaTeX Warning: Reference `fig:dispersion_prisma_luz' on page 12 undefined on in
+LaTeX Warning: Reference `fig:dispersion_prisma_luz' on page 11 undefined on in
 put line 303.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1876,17 +1861,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[12 <./images/ref_especular_difusa.png>]
+[11 <./images/ref_especular_difusa.png>]
 
-LaTeX Warning: Reference `fig:espejos_planos' on page 13 undefined on input lin
+LaTeX Warning: Reference `fig:espejos_planos' on page 12 undefined on input lin
 e 322.
 
-<images/espejo_plano.png, id=357, 562.1pt x 362.35374pt>
+<images/espejo_plano.png, id=347, 562.1pt x 362.35374pt>
 File: images/espejo_plano.png Graphic file (type png)
 <use images/espejo_plano.png>
 Package pdftex.def Info: images/espejo_plano.png  used on input line 326.
 (pdftex.def)             Requested size: 273.14923pt x 176.08415pt.
-<images/inversion_profundidad.jpg, id=358, 465.74pt x 281.05pt>
+<images/inversion_profundidad.jpg, id=348, 465.74pt x 281.05pt>
 File: images/inversion_profundidad.jpg Graphic file (type jpg)
 <use images/inversion_profundidad.jpg>
 Package pdftex.def Info: images/inversion_profundidad.jpg  used on input line 3
@@ -1900,14 +1885,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[13 <./images/descomposicion_luz.jpg> <./images/espejo_plano.png>]
-<images/espejo_esferico_AV.jpg, id=368, 559.08875pt x 335.2525pt>
+[12 <./images/descomposicion_luz.jpg> <./images/espejo_plano.png>]
+<images/espejo_esferico_AV.jpg, id=358, 559.08875pt x 335.2525pt>
 File: images/espejo_esferico_AV.jpg Graphic file (type jpg)
 <use images/espejo_esferico_AV.jpg>
 Package pdftex.def Info: images/espejo_esferico_AV.jpg  used on input line 346.
 
 (pdftex.def)             Requested size: 273.14923pt x 163.7943pt.
-<images/geometria_espejos.png, id=369, 425.33907pt x 263.48438pt>
+<images/geometria_espejos.png, id=359, 425.33907pt x 263.48438pt>
 File: images/geometria_espejos.png Graphic file (type png)
 <use images/geometria_espejos.png>
 Package pdftex.def Info: images/geometria_espejos.png  used on input line 357.
@@ -1924,15 +1909,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[14 <./images/inversion_profundidad.jpg> <./images/espejo_esferico_AV.jpg>]
-Overfull \hbox (5.87332pt too wide) in paragraph at lines 402--406
-\OT1/cmr/m/n/12 27/el-telescopio-con-la-mayor-camara-digital-del-mundo-construi
-da-para-la-astronomia-se-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+[13 <./images/inversion_profundidad.jpg> <./images/espejo_esferico_AV.jpg>]
+<images/Snells_law2.png, id=367, 1204.5pt x 2167.09625pt>
+File: images/Snells_law2.png Graphic file (type png)
+<use images/Snells_law2.png>
+Package pdftex.def Info: images/Snells_law2.png  used on input line 394.
+(pdftex.def)             Requested size: 227.62206pt x 409.504pt.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1942,7 +1924,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[15 <./images/geometria_espejos.png>])
+[14 <./images/geometria_espejos.png>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
+
+[15 <./images/Snells_law2.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.59999pt, for example:
@@ -1952,10 +1943,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
 [16]
-Cap\'{\i }tulo 2.
-[17
-
-]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.59999pt, for example:
@@ -1964,10 +1951,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[18
+[17]
 
-]
-Cap\'{\i }tulo 3.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
+
+[18]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
+
 [19]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1977,10 +1978,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[20
+[20]
+Overfull \hbox (5.87332pt too wide) in paragraph at lines 598--602
+\OT1/cmr/m/n/12 27/el-telescopio-con-la-mayor-camara-digital-del-mundo-construi
+da-para-la-astronomia-se-
+ []
 
-]
-Cap\'{\i }tulo 4.
+)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
+
 [21]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1993,12 +2005,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [22
 
 ]
-
-LaTeX Warning: Empty bibliography on input line 182.
-
-(./chapters/apendice-matematicas.tex [23
-
-])
+Cap\'{\i }tulo 2.
+[23]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.59999pt, for example:
@@ -2007,9 +2015,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
 
-[24] (./chapters/apendice-herramientas.tex) [25
+[24
 
 ]
+Cap\'{\i }tulo 3.
+[25]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.59999pt, for example:
@@ -2020,8 +2030,49 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [26
 
+]
+Cap\'{\i }tulo 4.
+[27]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
+
+[28
+
+]
+
+LaTeX Warning: Empty bibliography on input line 182.
+
+(./chapters/apendice-matematicas.tex [29
+
+])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
+
+[30] (./chapters/apendice-herramientas.tex) [31
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.59999pt}.
+
+[32
+
 ] (./chapters/apendice-diagramas.tex) (./chapters/partes-a-comprar.tex)
-[27] (./main.aux
+[33] (./main.aux
 LaTeX Info: Redefining \sptext on input line 8.
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
@@ -2038,7 +2089,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 229A0E093A73F1EBC772C433F58AC333;6539.
+(rerunfilecheck)             Checksum: B9C63D6E667BD8B12E60DE802C94F3BD;6539.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                main
@@ -2049,13 +2100,13 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 40150 strings out of 476047
- 798812 string characters out of 5792075
+ 40154 strings out of 476047
+ 798404 string characters out of 5792075
  1942975 words of memory out of 5000000
- 61448 multiletter control sequences out of 15000+600000
+ 61440 multiletter control sequences out of 15000+600000
  568475 words of font info for 73 fonts, out of 8000000 for 9000
  85 hyphenation exceptions out of 8191
- 93i,13n,99p,1124b,2314s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,13n,99p,1131b,2314s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texl
@@ -2069,10 +2120,10 @@ amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 sy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/cbfonts/grmn1200.pfb></usr/
 share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (31 pages, 1686095 bytes).
+Output written on main.pdf (37 pages, 1222263 bytes).
 PDF statistics:
- 538 PDF objects out of 1000 (max. 8388607)
- 428 compressed objects within 5 object streams
- 108 named destinations out of 1000 (max. 500000)
- 536 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 574 PDF objects out of 1000 (max. 8388607)
+ 458 compressed objects within 5 object streams
+ 120 named destinations out of 1000 (max. 500000)
+ 531 words of extra memory for PDF output out of 10000 (max. 10000000)
 
