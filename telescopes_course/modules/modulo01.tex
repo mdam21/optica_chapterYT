@@ -332,7 +332,6 @@ Como se mencionó al inicio, la palabra \textbf{telescopio} hace referencia a un
 
 Existen radiotelescopios, especializados en detectar ondas de radio provenientes del espacio. También hay telescopios infrarrojos y ultravioletas, diseñados para estudiar distintas regiones del universo a frecuencias específicas, con objetivos científicos particulares.
 
-\subsection{Telescopios Refractores}
 
 \subsection{Telescopios Refractores}
 
@@ -540,11 +539,71 @@ Ambos diseños logran una \textbf{gran distancia focal efectiva} en un tubo cort
 Gracias a su equilibrio entre calidad óptica, portabilidad y facilidad de uso, los telescopios catadióptricos son muy populares entre astrónomos aficionados avanzados y observatorios escolares. Son ideales para quienes buscan un único instrumento versátil que funcione bien en múltiples contextos de observación.
 
 \textbf{Resumen:} los telescopios catadióptricos integran en un solo sistema las fortalezas de los refractores y reflectores, proporcionando una solución óptica avanzada, compacta y versátil, ideal tanto para observación visual como para astrofotografía.
+
+
+
 \section{Parámetros Clave de un Telescopio}
 
 Los telescopios son instrumentos ópticos diseñados para captar y enfocar luz proveniente de objetos lejanos, permitiendo observar detalles invisibles al ojo humano. Para entender cómo se comporta un telescopio más allá de su tipo, es esencial conocer los parámetros físicos que definen su funcionamiento. Estos influyen directamente en el rendimiento óptico, la capacidad de observación y la utilidad del instrumento según su propósito (planetaria, cielo profundo, terrestre, etc.).
 
 Los parámetros principales son: \textbf{apertura}, \textbf{distancia focal}, \textbf{relación focal}, \textbf{aumento}, \textbf{resolución angular}, \textbf{campo visual}, \textbf{magnitud límite}, \textbf{obstrucción central} y \textbf{tiempo de aclimatación térmica}.
+
+\section{Accesorios Ópticos: Oculares y Lentes de Barlow}
+\label{sec:oculares_y_barlow}
+
+Además del tubo óptico, los oculares y otros accesorios determinan la utilidad práctica del telescopio.
+
+\paragraph{Oculares}
+El ocular es el componente que amplifica la imagen formada por el objetivo. Su elección afecta directamente la \textbf{magnificación} (o aumento), que se calcula con:
+
+\begin{equation}
+	\text{Aumento} = \frac{F_{\text{objetivo}}}{F_{\text{ocular}}}
+	\label{eq:aumento}
+\end{equation}
+
+donde $F_{\text{objetivo}}$ es la distancia focal del objetivo (lente o espejo primario), y $F_{\text{ocular}}$ es la distancia focal del ocular.
+
+Por ejemplo, un telescopio con una distancia focal de $700\,\mathrm{mm}$ y un ocular de $10\,\mathrm{mm}$ produce:
+
+\[
+\text{Aumento} = \frac{700}{10} = 70\times
+\]
+
+\paragraph{Campo Visual}
+
+No todos los aumentos son útiles. Con un ocular de menor distancia focal (más aumento), el campo visual es más estrecho y la imagen puede perder nitidez. Por eso se recomienda tener oculares de diferentes focales, por ejemplo, $25mm$, $10mm$, y $6mm$, y experimetnar con cada uno.
+
+
+\paragraph{Lente de Barlow}
+La lente de Barlow multiplica la distancia focal del telescopio, aumentando el aumento sin cambiar el ocular. Existen lentes Barlow 2x, 3x, etc.
+
+Ejemplo con Barlow 2x y ocular de $10\,\mathrm{mm}$:
+
+\[
+\text{Aumento} = \frac{700 \times 2}{10} = 140\times
+\]
+
+Esto permite observar detalles finos (como cráteres lunares), pero también amplifica defectos ópticos si se supera el límite práctico del telescopio.
+
+\paragraph{Compatibilidad y límites}
+El uso de una lente de Barlow debe considerarse cuidadosamente. Cada telescopio tiene un aumento máximo útil, típicamente unas $2\times$ por cada milímetro de apertura del objetivo:
+
+\begin{equation}
+	\text{Aumento máximo útil} \approx 2 \times D_{\text{objetivo}} \, (\mathrm{en}\ mm)
+	\label{eq:aumento_maximo}
+\end{equation}
+
+Por ejemplo, un telescopio de $70\,\mathrm{mm}$ de apertura no debería usarse con aumentos superiores a $140\times$. Usar una Barlow en este caso puede sobrepasar ese límite si se combina con un ocular muy corto.
+
+Además, algunas lentes de Barlow de baja calidad pueden introducir aberraciones ópticas o pérdida de brillo, especialmente en telescopios de corta distancia focal.
+
+Por ello, es importante:
+\begin{itemize}
+	\item Verificar que el aumento final no supere el límite útil del telescopio.
+	\item Usar lentes de Barlow de buena calidad.
+	\item Probar combinaciones prácticas antes de comprar nuevos accesorios.
+\end{itemize}
+
 
 \subsection{Apertura}
 \label{subsec:apertura}
